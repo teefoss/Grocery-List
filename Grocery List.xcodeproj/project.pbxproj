@@ -7,21 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFC1F7C18BC0014094B /* CheckBox.swift */; };
+		300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFE1F7C19220014094B /* GroceryItemCell.swift */; };
 		3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDB91F78508C00DC6FAD /* AppDelegate.swift */; };
-		3042CDBC1F78508C00DC6FAD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDBB1F78508C00DC6FAD /* ViewController.swift */; };
 		3042CDBF1F78508C00DC6FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDBD1F78508C00DC6FAD /* Main.storyboard */; };
 		3042CDC11F78508C00DC6FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDC01F78508C00DC6FAD /* Assets.xcassets */; };
 		3042CDC41F78508C00DC6FAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDC21F78508C00DC6FAD /* LaunchScreen.storyboard */; };
+		3042CDCC1F7850DA00DC6FAD /* SectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDCB1F7850DA00DC6FAD /* SectionsViewController.swift */; };
+		3050C6601F79BDCB00B3476A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C65F1F79BDCB00B3476A /* Section.swift */; };
+		3050C66B1F79DC4E00B3476A /* AddSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66A1F79DC4E00B3476A /* AddSectionViewController.swift */; };
+		3050C66D1F79F35700B3476A /* GroceriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66C1F79F35700B3476A /* GroceriesViewController.swift */; };
+		3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66E1F7A97FC00B3476A /* DataFunctions.swift */; };
+		3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6901F7B31F500B3476A /* AddItemViewController.swift */; };
+		3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300F2FFC1F7C18BC0014094B /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		300F2FFE1F7C19220014094B /* GroceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItemCell.swift; sourceTree = "<group>"; };
 		3042CDB61F78508C00DC6FAD /* Grocery List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3042CDB91F78508C00DC6FAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3042CDBB1F78508C00DC6FAD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3042CDBE1F78508C00DC6FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3042CDC01F78508C00DC6FAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3042CDC31F78508C00DC6FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3042CDC51F78508C00DC6FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3042CDCB1F7850DA00DC6FAD /* SectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsViewController.swift; sourceTree = "<group>"; };
+		3050C65F1F79BDCB00B3476A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		3050C66A1F79DC4E00B3476A /* AddSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSectionViewController.swift; sourceTree = "<group>"; };
+		3050C66C1F79F35700B3476A /* GroceriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceriesViewController.swift; sourceTree = "<group>"; };
+		3050C66E1F7A97FC00B3476A /* DataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFunctions.swift; sourceTree = "<group>"; };
+		3050C6901F7B31F500B3476A /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
+		3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +51,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		300F30001F7C19340014094B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				300F2FFE1F7C19220014094B /* GroceryItemCell.swift */,
+				300F2FFC1F7C18BC0014094B /* CheckBox.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		3042CDAD1F78508C00DC6FAD = {
 			isa = PBXGroup;
 			children = (
@@ -55,13 +80,36 @@
 			isa = PBXGroup;
 			children = (
 				3042CDB91F78508C00DC6FAD /* AppDelegate.swift */,
-				3042CDBB1F78508C00DC6FAD /* ViewController.swift */,
+				3050C6921F7B328600B3476A /* Groceries */,
+				3050C65F1F79BDCB00B3476A /* Section.swift */,
+				3050C66E1F7A97FC00B3476A /* DataFunctions.swift */,
+				3050C6631F79C38E00B3476A /* Sections */,
+				300F30001F7C19340014094B /* UI */,
 				3042CDBD1F78508C00DC6FAD /* Main.storyboard */,
 				3042CDC01F78508C00DC6FAD /* Assets.xcassets */,
 				3042CDC21F78508C00DC6FAD /* LaunchScreen.storyboard */,
 				3042CDC51F78508C00DC6FAD /* Info.plist */,
 			);
 			path = "Grocery List";
+			sourceTree = "<group>";
+		};
+		3050C6631F79C38E00B3476A /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				3042CDCB1F7850DA00DC6FAD /* SectionsViewController.swift */,
+				3050C66A1F79DC4E00B3476A /* AddSectionViewController.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		3050C6921F7B328600B3476A /* Groceries */ = {
+			isa = PBXGroup;
+			children = (
+				3050C66C1F79F35700B3476A /* GroceriesViewController.swift */,
+				3050C6901F7B31F500B3476A /* AddItemViewController.swift */,
+				3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */,
+			);
+			path = Groceries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +184,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3042CDBC1F78508C00DC6FAD /* ViewController.swift in Sources */,
+				3042CDCC1F7850DA00DC6FAD /* SectionsViewController.swift in Sources */,
+				3050C66D1F79F35700B3476A /* GroceriesViewController.swift in Sources */,
+				300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */,
+				3050C6601F79BDCB00B3476A /* Section.swift in Sources */,
+				3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */,
+				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
+				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
+				3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */,
+				3050C66B1F79DC4E00B3476A /* AddSectionViewController.swift in Sources */,
 				3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
