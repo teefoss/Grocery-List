@@ -109,22 +109,29 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 	
 	
 	// MARK: - Add Section Delegate Methods
-	
+
+	// Cancel
 	func AddSectionViewControllerDidCancel(_ controller: AddSectionViewController) {
 		navigationController?.popViewController(animated: true)
 	}
 	
-	func AddSectionViewController(_ controller: AddSectionViewController, didFinishAdding item: Section) {
-		let newRowIndex = sections.count
-		sections.append(item)
-		let indexPath = IndexPath(row: newRowIndex, section: 0)
-		let indexPaths = [indexPath]
-		tableView.insertRows(at: indexPaths, with: .automatic)
-		navigationController?.popViewController(animated: true)
+	// Add a section
+	func AddSectionViewController(_ controller: AddSectionViewController, didFinishAdding section: Section) {
+
+//		let indexPath = IndexPath(row: 0, section: 0)
+		sections.append(section)
+//		tableView.insertSections(indexSet, with: .automatic)
+		
+//		let indexPath = IndexPath(row: newRowIndex, section: 0)
+//		let indexPaths = [indexPath]
+//		tableView.insertRows(at: indexPaths, with: .automatic)
 		saveSections()
+		tableView.reloadData()
+		navigationController?.popViewController(animated: true)
 	}
 	
-	func AddSectionViewController(_ controller: AddSectionViewController, didFinishEditing item: Section) {
+	// Edit
+	func AddSectionViewController(_ controller: AddSectionViewController, didFinishEditing section: Section) {
 		saveSections()
 	}
 	

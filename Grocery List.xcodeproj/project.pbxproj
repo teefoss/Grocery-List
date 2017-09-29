@@ -20,6 +20,9 @@
 		3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66E1F7A97FC00B3476A /* DataFunctions.swift */; };
 		3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6901F7B31F500B3476A /* AddItemViewController.swift */; };
 		3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */; };
+		3067D5E81F7DF61D00A75527 /* MasterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */; };
+		3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E91F7DF74300A75527 /* MasterListCell.swift */; };
+		3067D5EC1F7DF76600A75527 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5EB1F7DF76600A75527 /* AddButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		3050C66E1F7A97FC00B3476A /* DataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFunctions.swift; sourceTree = "<group>"; };
 		3050C6901F7B31F500B3476A /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsListViewController.swift; sourceTree = "<group>"; };
+		3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListViewController.swift; sourceTree = "<group>"; };
+		3067D5E91F7DF74300A75527 /* MasterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListCell.swift; sourceTree = "<group>"; };
+		3067D5EB1F7DF76600A75527 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,13 +57,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		300F30001F7C19340014094B /* UI */ = {
+		300F30001F7C19340014094B /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				300F2FFE1F7C19220014094B /* GroceryItemCell.swift */,
+				3067D5E91F7DF74300A75527 /* MasterListCell.swift */,
 				300F2FFC1F7C18BC0014094B /* CheckBox.swift */,
+				3067D5EB1F7DF76600A75527 /* AddButton.swift */,
 			);
-			path = UI;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3042CDAD1F78508C00DC6FAD = {
@@ -80,11 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				3042CDB91F78508C00DC6FAD /* AppDelegate.swift */,
-				3050C6921F7B328600B3476A /* Groceries */,
-				3050C65F1F79BDCB00B3476A /* Section.swift */,
-				3050C66E1F7A97FC00B3476A /* DataFunctions.swift */,
-				3050C6631F79C38E00B3476A /* Sections */,
-				300F30001F7C19340014094B /* UI */,
+				30BE01EB1F7E71AE009B8B0C /* Model */,
+				30BE01ED1F7E71D7009B8B0C /* View Controllers */,
+				300F30001F7C19340014094B /* Views */,
 				3042CDBD1F78508C00DC6FAD /* Main.storyboard */,
 				3042CDC01F78508C00DC6FAD /* Assets.xcassets */,
 				3042CDC21F78508C00DC6FAD /* LaunchScreen.storyboard */,
@@ -110,6 +116,33 @@
 				3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */,
 			);
 			path = Groceries;
+			sourceTree = "<group>";
+		};
+		30BE01EB1F7E71AE009B8B0C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3050C65F1F79BDCB00B3476A /* Section.swift */,
+				3050C66E1F7A97FC00B3476A /* DataFunctions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		30BE01EC1F7E71C0009B8B0C /* Master List */ = {
+			isa = PBXGroup;
+			children = (
+				3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */,
+			);
+			path = "Master List";
+			sourceTree = "<group>";
+		};
+		30BE01ED1F7E71D7009B8B0C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				30BE01EC1F7E71C0009B8B0C /* Master List */,
+				3050C6921F7B328600B3476A /* Groceries */,
+				3050C6631F79C38E00B3476A /* Sections */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,12 +220,15 @@
 				3042CDCC1F7850DA00DC6FAD /* SectionsViewController.swift in Sources */,
 				3050C66D1F79F35700B3476A /* GroceriesViewController.swift in Sources */,
 				300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */,
+				3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */,
 				3050C6601F79BDCB00B3476A /* Section.swift in Sources */,
 				3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
 				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
 				3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */,
 				3050C66B1F79DC4E00B3476A /* AddSectionViewController.swift in Sources */,
+				3067D5E81F7DF61D00A75527 /* MasterListViewController.swift in Sources */,
+				3067D5EC1F7DF76600A75527 /* AddButton.swift in Sources */,
 				3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

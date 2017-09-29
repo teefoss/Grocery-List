@@ -11,7 +11,7 @@ import Foundation
 class Section: NSObject, Codable {
 
 	var name: String = ""
-	var item: [String] = []
+	var item: [Item] = []
 	var isSelected: Bool = false
 	
 	func toggleSelected() {
@@ -19,3 +19,22 @@ class Section: NSObject, Codable {
 	}
 	
 }
+
+
+
+class Item: NSObject, Codable {
+	var name: String = ""
+	var isInCart: Bool = false
+	var isOnGroceryList: Bool = false
+	var isOnMasterList: Bool = false
+
+	
+	func toggleInCart() {
+		isInCart = !isInCart
+	}
+}
+
+
+
+
+

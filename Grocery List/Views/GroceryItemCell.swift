@@ -8,8 +8,22 @@
 
 import UIKit
 
+
 class GroceryItemCell: UITableViewCell {
 
+	var check: (() -> Void)? = nil
+	
+	@IBOutlet weak var checkBox: CheckBox!
+	@IBOutlet weak var label: UILabel!
+
+	@IBAction func checkPressed(sender: UIButton) {
+		if let check = self.check {
+			checkBox.setNeedsDisplay()
+			check()
+		}
+	}
+	
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,5 +34,8 @@ class GroceryItemCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+	
+		
+	
 
 }

@@ -10,18 +10,20 @@ class CheckBox: UIButton {
 	
 	override func draw(_ rect: CGRect) {
 		
+		let margin: CGFloat = 10
 		let circleThickness: CGFloat = 1.5
-
-		let circlex = rect.origin.x + 0.5 * circleThickness
-		let circley = rect.origin.y + 0.5 * circleThickness
-		let circleWidth = rect.width - circleThickness
-		let circleHeight = rect.height - circleThickness
+		let dotMargin: CGFloat = 3.5
+		
+		let circlex = rect.origin.x + margin
+		let circley = rect.origin.y + margin
+		let circleWidth = rect.width - margin*2
+		let circleHeight = rect.height - margin*2
 		let circleRect = CGRect(x: circlex, y: circley, width: circleWidth, height: circleHeight)
 		
-		let dotx = rect.origin.x + 5.0
-		let doty = rect.origin.y + 5.0
-		let dotWidth = rect.size.width - 10.0
-		let dotHeight = rect.size.height - 10.0
+		let dotx = rect.origin.x + margin+dotMargin
+		let doty = rect.origin.y + margin+dotMargin
+		let dotWidth = rect.size.width - 2*(margin+dotMargin)
+		let dotHeight = rect.size.height - 2*(margin+dotMargin)
 		let dotRect = CGRect(x: dotx, y: doty, width: dotWidth, height: dotHeight)
 		
 		let circle = UIBezierPath(ovalIn: circleRect)
@@ -34,7 +36,6 @@ class CheckBox: UIButton {
 			UIColor.darkGray.setFill()
 			dot.fill()
 		}
-		
 		
 	}
 	

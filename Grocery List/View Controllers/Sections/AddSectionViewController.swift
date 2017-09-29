@@ -10,8 +10,8 @@ import UIKit
 
 protocol AddSectionViewControllerDelegate: class {
 	func AddSectionViewControllerDidCancel(_ controller: AddSectionViewController)
-	func AddSectionViewController(_ controller: AddSectionViewController, didFinishAdding item: Section)
-	func AddSectionViewController(_ controller: AddSectionViewController, didFinishEditing item: Section)
+	func AddSectionViewController(_ controller: AddSectionViewController, didFinishAdding section: Section)
+	func AddSectionViewController(_ controller: AddSectionViewController, didFinishEditing section: Section)
 }
 
 class AddSectionViewController: UITableViewController, UITextFieldDelegate {
