@@ -21,7 +21,6 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.leftBarButtonItem = self.editButtonItem
 		title = "Aisles & Sections"
-		loadSections()
 
 
 		// Uncomment the following line to preserve selection between presentations
@@ -30,6 +29,14 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+	
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		loadSections()
+		tableView.reloadData()
+
+	}
 
 
     // MARK: - Table view data source
@@ -54,12 +61,16 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
     }
 
 	
-	
-	// Editing
+	//
+	// MARK: - Editing
+	//
 	
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 	}
+	
+	
+	// Enable moveing rows
 	
 	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 		return true
@@ -67,20 +78,35 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 	
 
 
-    // Override to support editing the table view.
+    // Swipe to Delete
+	
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-			sections.remove(at: indexPath.row)
-			tableView.deleteRows(at: [indexPath], with: .fade)
-			saveSections()
+			if !sections[indexPath.row].groceryItem.isEmpty || !sections[indexPath.row].masterListItem.isEmpty {
+				let alert = UIAlertController(title: "Warning", message: "This section contains items. Are you sure you want to delete it?", preferredStyle: .alert)
+				alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+					self.sections.remove(at: indexPath.row)
+					tableView.deleteRows(at: [indexPath], with: .fade)
+					self.saveSections()
+				}))
+				alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+				self.present(alert, animated: true, completion: nil)
+			} else {
+				sections.remove(at: indexPath.row)
+				tableView.deleteRows(at: [indexPath], with: .fade)
+				saveSections()
+			}
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
+	
 
-    // Override to support rearranging the table view.
+    // Move Rows
+	
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 		let itemToMove = sections[fromIndexPath.row]
+		print("itemToMove.groceryItem.count = \(itemToMove.groceryItem.count)")
 		sections.remove(at: fromIndexPath.row)
 		sections.insert(itemToMove, at: to.row)
 		saveSections()

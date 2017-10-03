@@ -18,31 +18,67 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	var sections: [Section] = []
 	var delegate: AddItemViewControllerDelegate?
 	
+	var setGL: Bool = false
+	var setML: Bool = true
+	
 	@IBOutlet weak var nameTextField: UITextField!
 	@IBOutlet weak var doneButton: UIBarButtonItem!
 	@IBOutlet weak var sectionCell: UITableViewCell!
+	@IBOutlet weak var aisleTextLabel: UILabel!
+	
+	// Switches
+	
+	@IBOutlet weak var grocerySwitch: UISwitch!
+	@IBOutlet weak var masterListSwitch: UISwitch!
+	
+	@IBAction func grocerySwitchPressed(_ sender: Any) {
+		if !masterListSwitch.isOn {
+			masterListSwitch.setOn(true, animated: true)
+		}
+	}
+	
+	@IBAction func masterListSwitchPressed(_ sender: Any) {
+		if !grocerySwitch.isOn {
+			grocerySwitch.setOn(true, animated: true)
+		}
+	}
+	
+	
+	// Done Button
 	
 	@IBAction func done() {
 		let addedItem = Item()
 		addedItem.name = nameTextField.text!
 		addedItem.isInCart = false
-		addedItem.isOnGroceryList = true
 		for i in sections.indices {
 			if sections[i].isSelected {
-				sections[i].item.append(addedItem)
+				if grocerySwitch.isOn {
+					sections[i].addToGroceryList(item: addedItem)
+				}
+				if masterListSwitch.isOn {
+					sections[i].addToMasterList(item: addedItem)
+				}
 			}
 		}
 		delegate?.didAddItem(self, didAddItem: sections)
 	}
 	
-	
 	@IBAction func cancel() {
 		delegate?.didCancel(self)
 	}
 	
+	
+	
+	
+	
+	// MARK: - Life Cycle
+	
 	override func viewDidLoad() {
         super.viewDidLoad()
+//		doneButton.isEnabled = true
 		navigationController?.navigationBar.prefersLargeTitles = false
+		grocerySwitch.isOn = setGL
+		masterListSwitch.isOn = setML
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -56,16 +92,14 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		nameTextField.becomeFirstResponder()
 		for index in sections.indices {
 			if sections[index].isSelected {
-				sectionCell.textLabel?.text = sections[index].name
+				aisleTextLabel.text = sections[index].name
 				break
 			} else {
-				sectionCell.textLabel?.text = "No Aisle Selected"
+				aisleTextLabel.text = "None Selected"
 			}
 
 		}
 	}
-
-
 
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 		let oldText = nameTextField.text!
@@ -75,7 +109,6 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		doneButton.isEnabled = !newText.isEmpty
 		return true
 	}
-
 	
 	
 	
@@ -84,11 +117,16 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+
+		if section == 2 {	// lists sections
+			return 2
+		} else {
+			return 1		// name & aisle sections
+		}
 	}
 
 

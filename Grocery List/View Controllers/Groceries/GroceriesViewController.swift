@@ -10,6 +10,7 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.leftBarButtonItem = editButtonItem
+		title = "Grocery List"
 
 		
         // Uncomment the following line to preserve selection between presentations
@@ -24,6 +25,10 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		loadSections()
 		tableView.reloadData()
 	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		saveSections()
+	}
 
 
     // MARK: - Table view data source
@@ -34,21 +39,21 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
     }
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-			return sections[section].name
+			return "\(sections[section].name)   \(sections[section].groceryItem.count)"
 	}
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return sections[section].item.count
+        return sections[section].groceryItem.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GroceryCell", for: indexPath) as! GroceryItemCell
-		
-		let item = sections[indexPath.section].item[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GroceryCell", for: indexPath) as! GroceryItemCell		
+		let item = sections[indexPath.section].groceryItem[indexPath.row]
 		cell.label?.text = item.name
 
 		cell.checkBox.isChecked = item.isInCart
+		cell.checkBox.setNeedsDisplay()
 		
 		cell.check = {
 			item.isInCart = !item.isInCart
@@ -71,25 +76,32 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 	
 
 	@objc func deleteChecked(sender: UIBarButtonItem) {
-		var newItems = [Item]()
-		
-		// Fix this to use a filter!
+
+		var indicesOfSelected: [IndexPath] = []
+		var newItems: [Item] = []
+
 		for i in sections.indices {
 			newItems.removeAll()
-			for j in sections[i].item.indices  {
-				if !sections[i].item[j].isInCart {
-					let item = sections[i].item[j]
+			for j in sections[i].groceryItem.indices {
+				if sections[i].groceryItem[j].isInCart {
+					indicesOfSelected.append(IndexPath(row: j, section: i))
+				} else {
+					let item = sections[i].groceryItem[j]
 					newItems.append(item)
 				}
 			}
-			sections[i].item = newItems
+			sections[i].groceryItem.removeAll()
+			sections[i].groceryItem = newItems
 		}
 		saveSections()
+		tableView.deleteRows(at: indicesOfSelected, with: .fade)
 		tableView.reloadData()
-	}
+		isEditing = false
+		}
 	
 	@objc func addPressed(sender: UIBarButtonItem) {
 		performSegue(withIdentifier: "AddItem", sender: nil)
+		
 	}
 	
 	
@@ -100,7 +112,7 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		
 		if isEditing {
 			title = ""
-			let deleteItem = UIBarButtonItem(title: "Delete Selected Items", style: .plain, target: self, action: #selector(self.deleteChecked))
+			let deleteItem = UIBarButtonItem(title: "Delete Selected", style: .plain, target: self, action: #selector(self.deleteChecked))
 			//navigationItem.setRightBarButton(deleteItem, animated: true)
 			navigationItem.rightBarButtonItem = deleteItem
 		} else {
@@ -115,10 +127,11 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-			sections[indexPath.section].item.remove(at: indexPath.row)
+			sections[indexPath.section].groceryItem.remove(at: indexPath.row)
 			// Delete from the table
 			tableView.deleteRows(at: [indexPath], with: .fade)
 			saveSections()
+			tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -132,10 +145,22 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 
 	// Override to support rearranging the table view.
 	override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-		let itemToMove = sections[fromIndexPath.section].item[fromIndexPath.row]
-		sections[fromIndexPath.section].item.remove(at: fromIndexPath.row)
-		sections[to.section].item.insert(itemToMove, at: to.row)
+		let itemToMove = sections[fromIndexPath.section].groceryItem[fromIndexPath.row]
+		sections[fromIndexPath.section].groceryItem.remove(at: fromIndexPath.row)
+		sections[to.section].groceryItem.insert(itemToMove, at: to.row)
 		saveSections()
+		tableView.reloadData()
+	}
+	
+	override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+		if sourceIndexPath.section != proposedDestinationIndexPath.section {
+			var row = 0
+			if sourceIndexPath.section < proposedDestinationIndexPath.section {
+				row = self.tableView(tableView, numberOfRowsInSection: sourceIndexPath.section) - 1
+			}
+			return IndexPath(row: row, section: sourceIndexPath.section)
+		}
+		return proposedDestinationIndexPath
 	}
 
 	
@@ -149,8 +174,18 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 
 		if segue.identifier == "AddItem" {
 			let addItemVC = segue.destination as! AddItemViewController
+			addItemVC.setGL = true
+			addItemVC.setML = false
 			addItemVC.sections = self.sections
 			addItemVC.delegate = self
+		}
+		if segue.identifier == "EditItem" {
+			let addItemVC = segue.destination as! AddItemViewController
+			addItemVC.setGL = true
+			addItemVC.setML = false
+			addItemVC.sections = self.sections
+			addItemVC.delegate = self
+
 		}
 	
 	}
@@ -160,6 +195,7 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 	func didAddItem(_ controller: AddItemViewController, didAddItem item: [Section]) {
 		sections = item
 		saveSections()
+		tableView.reloadData()
 		navigationController?.popViewController(animated: true)
 	}
 	

@@ -22,6 +22,11 @@ class AddButton: UIButton {
 		let circleThickness: CGFloat = 1.5
 		let dotMargin: CGFloat = 0
 		let plusMargin: CGFloat = 4.0
+		let plusColor = UIColor(red: 67/255, green: 211/255, blue: 89/255, alpha: 1)
+		let minusColor = UIColor(red: 255/255, green: 51/255, blue: 43/255, alpha: 1)
+		
+		let midy = bounds.height / 2
+		let midx = bounds.width / 2
 
 		if showPlus {
 			let dotx = rect.origin.x + margin+dotMargin
@@ -31,11 +36,9 @@ class AddButton: UIButton {
 			let dotRect = CGRect(x: dotx, y: doty, width: dotWidth, height: dotHeight)
 
 			let dot = UIBezierPath(ovalIn: dotRect)
-			UIColor.darkGray.setFill()
+			plusColor.setFill()
 			dot.fill()
 			
-			let midy = bounds.height / 2
-			let midx = bounds.width / 2
 			
 			let plusPath = UIBezierPath()
 			plusPath.lineWidth = 3.0
@@ -56,8 +59,16 @@ class AddButton: UIButton {
 			let circle = UIBezierPath(ovalIn: circleRect)
 			circle.lineWidth = circleThickness
 			
-			UIColor.gray.setStroke()
+			UIColor.lightGray.setStroke()
 			circle.stroke()
+			
+			let plusPath = UIBezierPath()
+			plusPath.lineWidth = 3.0
+			plusPath.move(to: CGPoint(x: margin+plusMargin, y: midy))
+			plusPath.addLine(to: CGPoint(x: bounds.maxX-margin-plusMargin, y: midy))
+			minusColor.setStroke()
+			plusPath.stroke()
+
 		}
 		
 	}

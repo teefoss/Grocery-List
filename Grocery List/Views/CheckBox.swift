@@ -13,6 +13,7 @@ class CheckBox: UIButton {
 		let margin: CGFloat = 10
 		let circleThickness: CGFloat = 1.5
 		let dotMargin: CGFloat = 3.5
+		let color = UIColor(red: 0, green: 111/255, blue: 255/255, alpha: 1)
 		
 		let circlex = rect.origin.x + margin
 		let circley = rect.origin.y + margin
@@ -28,12 +29,12 @@ class CheckBox: UIButton {
 		
 		let circle = UIBezierPath(ovalIn: circleRect)
 		circle.lineWidth = circleThickness
-		UIColor.gray.setStroke()
+		UIColor.lightGray.setStroke()
 		circle.stroke()
 		
 		if isChecked {
 			let dot = UIBezierPath(ovalIn: dotRect)
-			UIColor.darkGray.setFill()
+			color.setFill()
 			dot.fill()
 		}
 		

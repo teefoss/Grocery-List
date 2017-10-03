@@ -14,8 +14,8 @@ class MasterListCell: UITableViewCell {
 
 	
 	@IBOutlet weak var plusButton: AddButton!
-	@IBOutlet weak var textField: UITextField!
-	@IBAction func addPressed(_ sender: UIButton) {
+	@IBOutlet weak var label: UILabel!
+	@IBAction func addPressed(sender: UIButton) {
 		if let plus = self.plus {
 			plusButton.setNeedsDisplay()
 			plus()

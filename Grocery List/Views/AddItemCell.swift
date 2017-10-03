@@ -1,32 +1,15 @@
 //
-//  GroceryItemCell.swift
+//  AddItemCell.swift
 //  Grocery List
 //
-//  Created by Thomas Foster on 9/27/17.
+//  Created by Thomas Foster on 10/2/17.
 //  Copyright © 2017 Thomas Foster. All rights reserved.
 //
 
 import UIKit
 
+class AddItemCell: UITableViewCell {
 
-class GroceryItemCell: UITableViewCell {
-
-	var check: (() -> Void)? = nil
-	
-	
-	@IBOutlet weak var checkBox: CheckBox!
-	@IBOutlet weak var label: UILabel!
-
-	@IBAction func checkPressed(sender: UIButton) {
-		if let check = self.check {
-			checkBox.setNeedsDisplay()
-			check()
-		}
-	}
-	
-	
-	
-	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -37,8 +20,5 @@ class GroceryItemCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-	
-		
-	
 
 }
