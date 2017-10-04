@@ -1,24 +1,25 @@
 import UIKit
 
-class GroceriesViewController: UITableViewController, AddItemViewControllerDelegate {
+class GroceriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddItemViewControllerDelegate, ToolbarDelegate {
 	
 	
 	var sections: [Section] = []
+	@IBOutlet weak var tableView: UITableView!
+	
+	
+	
+	
+	
+	
+	// MARK: - View Controller Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.leftBarButtonItem = editButtonItem
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationItem.largeTitleDisplayMode = .never
 		title = "Grocery List"
 
-		
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+		}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -26,28 +27,37 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		tableView.reloadData()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+	}
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		saveSections()
 	}
 
 
+	
+	
+	
+	
+
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return sections.count
     }
 	
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 			return "\(sections[section].name)   \(sections[section].groceryItem.count)"
 	}
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return sections[section].groceryItem.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroceryCell", for: indexPath) as! GroceryItemCell		
 		let item = sections[indexPath.section].groceryItem[indexPath.row]
 		cell.label?.text = item.name
@@ -99,10 +109,6 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		isEditing = false
 		}
 	
-	@objc func addPressed(sender: UIBarButtonItem) {
-		performSegue(withIdentifier: "AddItem", sender: nil)
-		
-	}
 	
 	
 	// Editing
@@ -124,7 +130,7 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 	}
 
 	// Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
 			sections[indexPath.section].groceryItem.remove(at: indexPath.row)
@@ -138,13 +144,13 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
     }
 
     // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
 
 	// Override to support rearranging the table view.
-	override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+	func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 		let itemToMove = sections[fromIndexPath.section].groceryItem[fromIndexPath.row]
 		sections[fromIndexPath.section].groceryItem.remove(at: fromIndexPath.row)
 		sections[to.section].groceryItem.insert(itemToMove, at: to.row)
@@ -152,7 +158,7 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		tableView.reloadData()
 	}
 	
-	override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+	func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
 		if sourceIndexPath.section != proposedDestinationIndexPath.section {
 			var row = 0
 			if sourceIndexPath.section < proposedDestinationIndexPath.section {
@@ -179,6 +185,10 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 			addItemVC.sections = self.sections
 			addItemVC.delegate = self
 		}
+		
+//		if segue.identifier == "AddAisle" {
+//			let
+//		}
 		if segue.identifier == "EditItem" {
 			let addItemVC = segue.destination as! AddItemViewController
 			addItemVC.setGL = true
@@ -189,6 +199,26 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		}
 	
 	}
+	
+	
+	@objc func addPressed() {
+		performSegue(withIdentifier: "AddItem", sender: nil)
+		
+	}
+	
+	@objc func aislesPressed() {
+		performSegue(withIdentifier: "AddAisle", sender: nil)
+	}
+	
+	@objc func editPressed() {
+		
+	}
+
+	
+	
+	
+	
+	
 	
 	// MARK: - Add Item Delegate Methods
 	
@@ -203,6 +233,9 @@ class GroceriesViewController: UITableViewController, AddItemViewControllerDeleg
 		navigationController?.popViewController(animated: true)
 	}
 
+	
+	
+	
 	
 	
 	

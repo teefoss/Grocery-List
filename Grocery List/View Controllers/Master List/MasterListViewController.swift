@@ -8,22 +8,26 @@
 
 import UIKit
 
-class MasterListViewController: UITableViewController, AddItemViewControllerDelegate {
+class MasterListViewController: UITableViewController, AddItemViewControllerDelegate, ToolbarDelegate {
 	
 
 	var sections: [Section] = []
+	
+	
+	
+	
+	
 	
 	// MARK: - Life Cycle
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationItem.largeTitleDisplayMode = .never
 		title = "Master List"
-		navigationItem.leftBarButtonItem = editButtonItem
-		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonClicked))
-		navigationItem.rightBarButtonItem = addButton
+		
     }
+	
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -31,19 +35,18 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		tableView.reloadData()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+	}
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		saveSections()
 	}
 	
+
 	
 	
 	
-	
-	// MARK: - Functions
-	
-	@objc func addButtonClicked(_ sender: UIBarButtonItem) {
-		performSegue(withIdentifier: "AddToMasterList", sender: nil)
-	}
 	
 	
 	
@@ -181,6 +184,12 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
         return true
     }
 
+	
+	
+	
+	
+	
+	
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -197,7 +206,22 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		}
 	}
 	
+	@objc func addPressed() {
+		performSegue(withIdentifier: "AddToMasterList", sender: nil)
+	}
+	
+	@objc func aislesPressed() {
+		performSegue(withIdentifier: "AddSection", sender: nil)
+	}
+	
+	@objc func editPressed() {
+		
+	}
 
+	
+
+	
+	
 	
 	
 	

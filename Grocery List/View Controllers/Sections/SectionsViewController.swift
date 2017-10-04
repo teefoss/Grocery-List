@@ -18,9 +18,17 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.leftBarButtonItem = self.editButtonItem
 		title = "Aisles & Sections"
+
+		var items = [UIBarButtonItem]()
+		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
+		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+		let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+		
+		items.append(editButton)
+		items.append(flexSpace)
+		items.append(addButton)
+		toolbarItems = items
 
 
 		// Uncomment the following line to preserve selection between presentations
@@ -121,10 +129,15 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "addSection" {
+		if segue.identifier == "AddSection" {
 			let addSectionVC = segue.destination as! AddSectionViewController
 			addSectionVC.delegate = self
 		}
+	}
+	
+	
+	@objc func addPressed(sender: UIBarButtonItem) {
+		performSegue(withIdentifier: "AddSection", sender: nil)
 	}
 	
 	

@@ -25,7 +25,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	@IBOutlet weak var doneButton: UIBarButtonItem!
 	@IBOutlet weak var sectionCell: UITableViewCell!
 	@IBOutlet weak var aisleTextLabel: UILabel!
-	
+		
 	// Switches
 	
 	@IBOutlet weak var grocerySwitch: UISwitch!
@@ -42,6 +42,49 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 			grocerySwitch.setOn(true, animated: true)
 		}
 	}
+	
+	
+	
+	
+	
+	// MARK: - Life Cycle
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		//		doneButton.isEnabled = true
+
+		
+		
+		
+		grocerySwitch.isOn = setGL
+		masterListSwitch.isOn = setML
+		
+		// Uncomment the following line to preserve selection between presentations
+		// self.clearsSelectionOnViewWillAppear = false
+		
+		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+		// self.navigationItem.rightBarButtonItem = self.editButtonItem
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		nameTextField.becomeFirstResponder()
+		for index in sections.indices {
+			if sections[index].isSelected {
+				aisleTextLabel.text = sections[index].name
+				break
+			} else {
+				aisleTextLabel.text = "None Selected"
+			}
+			
+		}
+	}
+
+	
+	
+	
+	
+	
 	
 	
 	// Done Button
@@ -71,35 +114,6 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	
 	
-	// MARK: - Life Cycle
-	
-	override func viewDidLoad() {
-        super.viewDidLoad()
-//		doneButton.isEnabled = true
-		navigationController?.navigationBar.prefersLargeTitles = false
-		grocerySwitch.isOn = setGL
-		masterListSwitch.isOn = setML
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		nameTextField.becomeFirstResponder()
-		for index in sections.indices {
-			if sections[index].isSelected {
-				aisleTextLabel.text = sections[index].name
-				break
-			} else {
-				aisleTextLabel.text = "None Selected"
-			}
-
-		}
-	}
 
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 		let oldText = nameTextField.text!

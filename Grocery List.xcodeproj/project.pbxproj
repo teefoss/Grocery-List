@@ -24,6 +24,7 @@
 		3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E91F7DF74300A75527 /* MasterListCell.swift */; };
 		3067D5EC1F7DF76600A75527 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5EB1F7DF76600A75527 /* AddButton.swift */; };
 		307300E01F82956A003AC208 /* AddItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307300DF1F82956A003AC208 /* AddItemCell.swift */; };
+		307300E41F847028003AC208 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307300E31F847028003AC208 /* MasterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		3067D5E91F7DF74300A75527 /* MasterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListCell.swift; sourceTree = "<group>"; };
 		3067D5EB1F7DF76600A75527 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		307300DF1F82956A003AC208 /* AddItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCell.swift; sourceTree = "<group>"; };
+		307300E31F847028003AC208 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				3042CDB91F78508C00DC6FAD /* AppDelegate.swift */,
+				307300E31F847028003AC208 /* MasterViewController.swift */,
 				30BE01EB1F7E71AE009B8B0C /* Model */,
 				30BE01ED1F7E71D7009B8B0C /* View Controllers */,
 				300F30001F7C19340014094B /* Views */,
@@ -225,6 +228,7 @@
 				300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */,
 				3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */,
 				3050C6601F79BDCB00B3476A /* Section.swift in Sources */,
+				307300E41F847028003AC208 /* MasterViewController.swift in Sources */,
 				3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
 				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
