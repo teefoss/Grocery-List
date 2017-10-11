@@ -23,7 +23,8 @@ class AddButton: UIButton {
 		let dotMargin: CGFloat = 0
 		let plusMargin: CGFloat = 4.0
 		let plusColor = UIColor(red: 67/255, green: 211/255, blue: 89/255, alpha: 1)
-		let minusColor = UIColor(red: 255/255, green: 51/255, blue: 43/255, alpha: 1)
+//		let minusColor = UIColor(red: 255/255, green: 51/255, blue: 43/255, alpha: 1)
+		let minusColor = UIColor.darkGray
 		
 		let midy = bounds.height / 2
 		let midx = bounds.width / 2
@@ -49,7 +50,7 @@ class AddButton: UIButton {
 			UIColor.white.setStroke()
 			plusPath.stroke()
 			
-		} else {
+		} else {	// minus symbol
 			let circlex = rect.origin.x + margin
 			let circley = rect.origin.y + margin
 			let circleWidth = rect.width - margin*2

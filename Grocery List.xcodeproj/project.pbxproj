@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30052A0B1F86DB52009C3927 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30052A0A1F86DB52009C3927 /* Constants.swift */; };
+		30052A0F1F87C9D4009C3927 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30052A0E1F87C9D4009C3927 /* EmptyView.swift */; };
 		300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFC1F7C18BC0014094B /* CheckBox.swift */; };
 		300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFE1F7C19220014094B /* GroceryItemCell.swift */; };
 		3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDB91F78508C00DC6FAD /* AppDelegate.swift */; };
@@ -20,6 +22,7 @@
 		3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66E1F7A97FC00B3476A /* DataFunctions.swift */; };
 		3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6901F7B31F500B3476A /* AddItemViewController.swift */; };
 		3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */; };
+		306231EC1F8E58C0000EEE84 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306231EB1F8E58C0000EEE84 /* Extentions.swift */; };
 		3067D5E81F7DF61D00A75527 /* MasterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */; };
 		3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E91F7DF74300A75527 /* MasterListCell.swift */; };
 		3067D5EC1F7DF76600A75527 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5EB1F7DF76600A75527 /* AddButton.swift */; };
@@ -28,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30052A0A1F86DB52009C3927 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		30052A0E1F87C9D4009C3927 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		300F2FFC1F7C18BC0014094B /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		300F2FFE1F7C19220014094B /* GroceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItemCell.swift; sourceTree = "<group>"; };
 		3042CDB61F78508C00DC6FAD /* Grocery List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +48,7 @@
 		3050C66E1F7A97FC00B3476A /* DataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFunctions.swift; sourceTree = "<group>"; };
 		3050C6901F7B31F500B3476A /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsListViewController.swift; sourceTree = "<group>"; };
+		306231EB1F8E58C0000EEE84 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListViewController.swift; sourceTree = "<group>"; };
 		3067D5E91F7DF74300A75527 /* MasterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListCell.swift; sourceTree = "<group>"; };
 		3067D5EB1F7DF76600A75527 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
@@ -69,6 +75,7 @@
 				300F2FFC1F7C18BC0014094B /* CheckBox.swift */,
 				3067D5EB1F7DF76600A75527 /* AddButton.swift */,
 				307300DF1F82956A003AC208 /* AddItemCell.swift */,
+				30052A0E1F87C9D4009C3927 /* EmptyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -94,6 +101,8 @@
 			children = (
 				3042CDB91F78508C00DC6FAD /* AppDelegate.swift */,
 				307300E31F847028003AC208 /* MasterViewController.swift */,
+				30052A0A1F86DB52009C3927 /* Constants.swift */,
+				306231EB1F8E58C0000EEE84 /* Extentions.swift */,
 				30BE01EB1F7E71AE009B8B0C /* Model */,
 				30BE01ED1F7E71D7009B8B0C /* View Controllers */,
 				300F30001F7C19340014094B /* Views */,
@@ -230,6 +239,9 @@
 				3050C6601F79BDCB00B3476A /* Section.swift in Sources */,
 				307300E41F847028003AC208 /* MasterViewController.swift in Sources */,
 				3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */,
+				30052A0F1F87C9D4009C3927 /* EmptyView.swift in Sources */,
+				306231EC1F8E58C0000EEE84 /* Extentions.swift in Sources */,
+				30052A0B1F86DB52009C3927 /* Constants.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
 				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
 				3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */,

@@ -19,13 +19,12 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
 		title = "Aisles & Sections"
+		navigationItem.rightBarButtonItem = editButtonItem
 
 		var items = [UIBarButtonItem]()
 		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
 		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-		let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
 		
-		items.append(editButton)
 		items.append(flexSpace)
 		items.append(addButton)
 		toolbarItems = items
@@ -43,7 +42,8 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 		super.viewWillAppear(animated)
 		loadSections()
 		tableView.reloadData()
-
+		setTableViewBackground(text: "No Aisles")
+		
 	}
 
 
@@ -73,21 +73,15 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 	// MARK: - Editing
 	//
 	
-	override func setEditing(_ editing: Bool, animated: Bool) {
-		super.setEditing(editing, animated: animated)
-	}
 	
 	
 	// Enable moveing rows
-	
 	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 		return true
 	}
 	
 
-
     // Swipe to Delete
-	
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 			if !sections[indexPath.row].groceryItem.isEmpty || !sections[indexPath.row].masterListItem.isEmpty {
@@ -99,14 +93,14 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 				}))
 				alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 				self.present(alert, animated: true, completion: nil)
+				setTableViewBackground(text: "No Aisles")
 			} else {
 				sections.remove(at: indexPath.row)
 				tableView.deleteRows(at: [indexPath], with: .fade)
 				saveSections()
+				setTableViewBackground(text: "No Aisles")
 			}
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
 	
 
@@ -207,6 +201,41 @@ class SectionsViewController: UITableViewController, AddSectionViewControllerDel
 				print("Error decoding item array")
 			}
 		} }
+
+	
+	
+	
+	// MARK: - Empty View Methods
+	
+	// Call these methods in viewDidLoad(), commit EditingStyle
+	
+	func setTableViewBackground(text: String) {
+		
+		if sections.isEmpty {
+			tableView.backgroundView = setupEmptyView(text: text)
+		} else {
+			tableView.backgroundView = nil
+		}
+		
+	}
+	
+	
+	func setupEmptyView(text: String) -> UIView {
+		let emptyView = UIView()
+		let label = UILabel()
+		emptyView.frame = tableView.frame
+		emptyView.backgroundColor = UIColor.groupTableViewBackground
+		label.frame = CGRect.zero
+		label.text = text
+		label.font = UIFont.boldSystemFont(ofSize: 36.0)
+		label.textColor = UIColor.lightGray
+		//		label.shadowColor = UIColor.lightGray
+		//		label.shadowOffset = CGSize(width: 1.0, height: 1.0)
+		label.sizeToFit()
+		label.center = emptyView.center
+		emptyView.addSubview(label)
+		return emptyView
+	}
 
 
 

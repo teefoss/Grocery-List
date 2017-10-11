@@ -51,9 +51,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		//		doneButton.isEnabled = true
-
 		
+		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+		navigationController?.navigationBar.tintColor = UIColor.white
+		navigationController?.navigationBar.barTintColor = appColor
+		navigationController?.navigationBar.isTranslucent = false
+		navigationController?.navigationBar.isOpaque = true
+
 		
 		
 		grocerySwitch.isOn = setGL
@@ -80,7 +84,9 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		}
 	}
 
-	
+	override func viewWillDisappear(_ animated: Bool) {
+		view.endEditing(true)
+	}
 	
 	
 	
@@ -104,10 +110,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 			}
 		}
 		delegate?.didAddItem(self, didAddItem: sections)
+		self.dismiss(animated: true, completion: nil)
 	}
 	
 	@IBAction func cancel() {
 		delegate?.didCancel(self)
+		self.dismiss(animated: true, completion: nil)
+
 	}
 	
 	

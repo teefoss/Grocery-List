@@ -15,7 +15,7 @@ class GroceryItemCell: UITableViewCell {
 	
 	
 	@IBOutlet weak var checkBox: CheckBox!
-	@IBOutlet weak var label: UILabel!
+	@IBOutlet weak var textField: UITextField!
 
 	@IBAction func checkPressed(sender: UIButton) {
 		if let check = self.check {
@@ -23,7 +23,6 @@ class GroceryItemCell: UITableViewCell {
 			check()
 		}
 	}
-	
 	
 	
 	

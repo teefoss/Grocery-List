@@ -1,13 +1,10 @@
 import UIKit
 
-class GroceriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddItemViewControllerDelegate, ToolbarDelegate {
+class GroceriesViewController: UITableViewController, AddItemViewControllerDelegate, UITextFieldDelegate {
 	
 	
 	var sections: [Section] = []
-	@IBOutlet weak var tableView: UITableView!
-	
-	
-	
+	var savedText: String = ""
 	
 	
 	
@@ -15,77 +12,184 @@ class GroceriesViewController: UIViewController, UITableViewDelegate, UITableVie
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		navigationController?.navigationBar.prefersLargeTitles = false
-		navigationItem.largeTitleDisplayMode = .never
+		
 		title = "Grocery List"
+		
+		// Set Up Navigation Bar
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+		navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+		navigationController?.navigationBar.tintColor = UIColor.white
+		navigationController?.navigationBar.barTintColor = appColor
+		navigationController?.navigationBar.isTranslucent = false
+		navigationController?.navigationBar.isOpaque = true
 
-		}
+		// Set Up Navigation Items
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.leftBarButtonItem = editButtonItem
+		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Saved Items", style: .plain, target: self, action: #selector(gotoSavedItems))
+
+		// Set Up Toolbar
+		navigationController?.toolbar.tintColor = appColor
+		navigationController?.toolbar.barTintColor = buttonColor
+		toolbarItems = addToolbarItems()
+		
+		hideKeyboard()
+		
+	}
+	
+	
+	
+	
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
+		
 		loadSections()
 		tableView.reloadData()
+		
+		setTableViewBackground(text: "No Groceries")
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-	}
+	
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		saveSections()
 	}
 
+	func addToolbarItems() -> [UIBarButtonItem] {
+		
+		// Set up Aisles Button
+		let sectionsButton = UIButton()
+		sectionsButton.frame = CGRect.zero
+		sectionsButton.setTitle("  Edit Aisles  ", for: .normal)
+		sectionsButton.setTitle("  Edit Aisles  ", for: .highlighted)
+		sectionsButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
+		sectionsButton.backgroundColor = appColor
+		sectionsButton.layer.cornerRadius = 5.0
+		sectionsButton.sizeToFit()
+		sectionsButton.addTarget(self, action: #selector(aislesPressed), for: .touchUpInside)
 
-	
+		// Set up Toolbar Buttons
+		var items = [UIBarButtonItem]()
+		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
+		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+		let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePressed))
+		let sectionsButtonItem = UIBarButtonItem(customView: sectionsButton)
+		
+		items.append(deleteButton)
+		items.append(flexSpace)
+		items.append(sectionsButtonItem)
+		items.append(flexSpace)
+		items.append(addButton)
+		
+		return items
+	}
+
+
 	
 	
 	
 
     // MARK: - Table view data source
 
-    func numberOfSections(in tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return sections.count
     }
 	
-	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-			return "\(sections[section].name)   \(sections[section].groceryItem.count)"
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
+		let label = UILabel(frame: CGRect(x: 16, y: 20, width: tableView.frame.size.width, height: 44))
+		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+		label.textColor = appColor
+		if sections[section].groceryItem.isEmpty {
+			label.text = nil
+		} else {
+			label.text = sections[section].name
+		}
+		view.addSubview(label)
+		view.backgroundColor = UIColor.groupTableViewBackground
+		
+		return view
 	}
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		if sections[section].groceryItem.isEmpty {
+			return nil
+		}
+		return "\(sections[section].name)"
+	}
+
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return sections[section].groceryItem.count
     }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		if sections[section].groceryItem.isEmpty {
+			return CGFloat.leastNormalMagnitude
+		}
+		return 64
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNormalMagnitude
+	}
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroceryCell", for: indexPath) as! GroceryItemCell		
 		let item = sections[indexPath.section].groceryItem[indexPath.row]
-		cell.label?.text = item.name
+		let attributeString = NSMutableAttributedString(string: item.name)
+		attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
 
+		if item.isInCart {
+			cell.textField.textColor = UIColor.gray
+			cell.textField.attributedText = attributeString
+		} else {
+			cell.textField.textColor = UIColor.darkText
+			cell.textField.attributedText = nil
+			cell.textField?.text = item.name
+		}
+		if item.name == "" {
+			item.name = savedText
+		}
 		cell.checkBox.isChecked = item.isInCart
 		cell.checkBox.setNeedsDisplay()
 		
 		cell.check = {
 			item.isInCart = !item.isInCart
 			cell.checkBox.isChecked = item.isInCart
+			if item.isInCart {
+				cell.textField.textColor = UIColor.gray
+				cell.textField.attributedText = attributeString
+			} else {
+				cell.textField.attributedText = nil
+				cell.textField.textColor = UIColor.darkText
+				cell.textField.text = item.name
+			}
+			cell.setNeedsDisplay()
 			print("\(item.isInCart)")
 			self.saveSections()
 		}
         return cell
     }
 
-//	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		let cell = tableView.cellForRow(at: indexPath) as! GroceryItemCell
-//		let item = sections[indexPath.section].item[indexPath.row]
-//		item.isInCart = !item.isInCart
-//		print("\(item.isInCart)")
-//		cell.checkBox.isChecked = !cell.checkBox.isChecked
-//		tableView.deselectRow(at: indexPath, animated: true)
-//		saveSections()
-//	}
+	
+	@objc func deletePressed() {
+		let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		alert.addAction(UIAlertAction(title: "Clear All", style: .destructive, handler: { alert -> Void in self.deleteAll() }))
+		alert.addAction(UIAlertAction(title: "Clear Selected", style: .destructive, handler: { alert -> Void in self.deleteSelected() }))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {alert -> Void in }))
+		present(alert, animated: true, completion: nil)
+	}
 	
 
-	@objc func deleteChecked(sender: UIBarButtonItem) {
+	func deleteSelected() {
 
 		var indicesOfSelected: [IndexPath] = []
 		var newItems: [Item] = []
@@ -104,70 +208,116 @@ class GroceriesViewController: UIViewController, UITableViewDelegate, UITableVie
 			sections[i].groceryItem = newItems
 		}
 		saveSections()
-		tableView.deleteRows(at: indicesOfSelected, with: .fade)
-		tableView.reloadData()
+		tableView.performBatchUpdates({	tableView.deleteRows(at: indicesOfSelected, with: .right) }, completion: { finished in self.tableView.reloadData() })
+		setTableViewBackground(text: "No Groceries")
 		isEditing = false
+	}
+	
+	func deleteAll() {
+		//var indices = [IndexPath]()
+		for i in sections.indices {
+			sections[i].groceryItem.removeAll()
 		}
+		saveSections()
+		UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve, animations: { self.tableView.reloadData() }, completion: nil)
+		setTableViewBackground(text: "No Groceries")
+		isEditing = false
+	}
 	
 	
 	
 	// Editing
 	
-	override func setEditing(_ editing: Bool, animated: Bool) {
-		super.setEditing(editing, animated: animated)
+//	override func setEditing(_ editing: Bool, animated: Bool) {
+//		super.setEditing(editing, animated: animated)
+//
+//	}
+
+	
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		savedText = textField.text!
+	}
+	
+//	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//		let oldText = textField.text!
+//		let stringRange = Range(range, in: oldText)!
+//		let newText = oldText.replacingCharacters(in: stringRange, with: string)
+//
+//		if newText.isEmpty {
+//			return false
+//		}
+//		return true
+//
+//	}
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		
-		if isEditing {
-			title = ""
-			let deleteItem = UIBarButtonItem(title: "Delete Selected", style: .plain, target: self, action: #selector(self.deleteChecked))
-			//navigationItem.setRightBarButton(deleteItem, animated: true)
-			navigationItem.rightBarButtonItem = deleteItem
-		} else {
-			title = "Grocery List"
-			let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addPressed))
-			//navigationItem.setRightBarButton(addButton , animated: true)
-			navigationItem.rightBarButtonItem = addButton
-		}
+//		if textField.text == nil {
+//			textField.text = savedText
+//			textField.resignFirstResponder()
+//		} else {
+			textField.resignFirstResponder()
+//		}
+		return true
 	}
 
+	// update model
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		let location = textField.convert(textField.bounds.origin, to: self.tableView)
+		let textFieldIndexPath = self.tableView.indexPathForRow(at: location)
+		
+		
+		if textField.text != nil {
+			sections[(textFieldIndexPath?.section)!].groceryItem[(textFieldIndexPath?.row)!].name = textField.text!
+		} else {
+			sections[(textFieldIndexPath?.section)!].groceryItem[(textFieldIndexPath?.row)!].name = savedText
+		}
+		tableView.reloadData()
+		saveSections()
+		
+	}
+
+	
 	// Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+			
             // Delete the row from the data source
 			sections[indexPath.section].groceryItem.remove(at: indexPath.row)
-			// Delete from the table
-			tableView.deleteRows(at: [indexPath], with: .fade)
 			saveSections()
-			tableView.reloadData()
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+
+			// Delete from the table
+			tableView.performBatchUpdates({	tableView.deleteRows(at: [indexPath], with: .automatic)}, completion: { finished in tableView.reloadData() })
+			setTableViewBackground(text: "No Groceries")
+
+		}
     }
 
-    // Override to support conditional rearranging of the table view.
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+	
+	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true		// table is reorderable
     }
 
+	
 	// Override to support rearranging the table view.
-	func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+	override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 		let itemToMove = sections[fromIndexPath.section].groceryItem[fromIndexPath.row]
 		sections[fromIndexPath.section].groceryItem.remove(at: fromIndexPath.row)
 		sections[to.section].groceryItem.insert(itemToMove, at: to.row)
 		saveSections()
-		tableView.reloadData()
+//		tableView.reloadData()
 	}
 	
-	func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-		if sourceIndexPath.section != proposedDestinationIndexPath.section {
-			var row = 0
-			if sourceIndexPath.section < proposedDestinationIndexPath.section {
-				row = self.tableView(tableView, numberOfRowsInSection: sourceIndexPath.section) - 1
-			}
-			return IndexPath(row: row, section: sourceIndexPath.section)
-		}
-		return proposedDestinationIndexPath
-	}
+//	func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//		if sourceIndexPath.section != proposedDestinationIndexPath.section {
+//			var row = 0
+//			if sourceIndexPath.section < proposedDestinationIndexPath.section {
+//				row = self.tableView(tableView, numberOfRowsInSection: sourceIndexPath.section) - 1
+//			}
+//			return IndexPath(row: row, section: sourceIndexPath.section)
+//		}
+//		return proposedDestinationIndexPath
+//	}
 
 	
 	
@@ -179,7 +329,10 @@ class GroceriesViewController: UIViewController, UITableViewDelegate, UITableVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 		if segue.identifier == "AddItem" {
-			let addItemVC = segue.destination as! AddItemViewController
+			let navigation = segue.destination as! UINavigationController
+//			let addItemVC = segue.destination as! AddItemViewController
+			var addItemVC = AddItemViewController()
+			addItemVC = navigation.viewControllers[0] as! AddItemViewController
 			addItemVC.setGL = true
 			addItemVC.setML = false
 			addItemVC.sections = self.sections
@@ -210,8 +363,8 @@ class GroceriesViewController: UIViewController, UITableViewDelegate, UITableVie
 		performSegue(withIdentifier: "AddAisle", sender: nil)
 	}
 	
-	@objc func editPressed() {
-		
+	@objc func gotoSavedItems() {
+		performSegue(withIdentifier: "SavedItemsSegue", sender: nil)
 	}
 
 	
@@ -226,11 +379,11 @@ class GroceriesViewController: UIViewController, UITableViewDelegate, UITableVie
 		sections = item
 		saveSections()
 		tableView.reloadData()
-		navigationController?.popViewController(animated: true)
+//		navigationController?.popViewController(animated: true)		
 	}
 	
 	func didCancel(_ controller: AddItemViewController) {
-		navigationController?.popViewController(animated: true)
+//		navigationController?.popViewController(animated: true)
 	}
 
 	
@@ -265,6 +418,56 @@ class GroceriesViewController: UIViewController, UITableViewDelegate, UITableVie
 				print("Error decoding item array")
 			}
 		} }
+	
+	
+	
+	
+	// MARK: - Empty View Methods
+	
+	// Call these methods in viewDidLoad(), commit EditingStyle, deleteSelected(), deleteAll()
+	
+	func setTableViewBackground(text: String) {
+		
+		var isEmpty = true
+		
+		for i in sections.indices {
+			if !sections[i].groceryItem.isEmpty {
+				isEmpty = false
+			}
+		}
+		
+		if isEmpty {
+			tableView.backgroundView = setupEmptyView(text: text)
+		} else {
+			tableView.backgroundView = nil
+		}
+		
+	}
+	
+	
+	func setupEmptyView(text: String) -> UIView {
+		let emptyView = UIView()
+		let label = UILabel()
+		emptyView.frame = tableView.frame
+		emptyView.backgroundColor = UIColor.groupTableViewBackground
+		label.frame = CGRect.zero
+		label.text = text
+		label.font = UIFont.boldSystemFont(ofSize: 36.0)
+		label.textColor = UIColor.lightGray
+		//		label.shadowColor = UIColor.lightGray
+		//		label.shadowOffset = CGSize(width: 1.0, height: 1.0)
+		label.sizeToFit()
+		label.center = emptyView.center
+		emptyView.addSubview(label)
+		return emptyView
+	}
+
 
 
 }
+
+
+
+
+
+

@@ -42,25 +42,10 @@ class MasterViewController: UIViewController {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		toolbarItems = addToolbarItems()
+//		toolbarItems = addToolbarItems()
 		setupView()
     }
 	
-	func addToolbarItems() -> [UIBarButtonItem] {
-		var items = [UIBarButtonItem]()
-		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
-		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-		let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-		let sectionsButton = UIBarButtonItem(title: "Aisles", style: .plain, target: self, action: #selector(aislesPressed))
-		
-		items.append(editButton)
-		items.append(flexSpace)
-		items.append(sectionsButton)
-		items.append(flexSpace)
-		items.append(addButton)
-		
-		return items
-	}
 
 
 	
@@ -109,11 +94,11 @@ class MasterViewController: UIViewController {
 	private func updateView() {
 		if segmentedControl.selectedSegmentIndex == 0 {
 			add(asChildViewController: groceryViewController)
-			delegate = groceryViewController
+//			delegate = groceryViewController
 			remove(asChildViewController: masterListViewController)
 		} else {
 			add(asChildViewController: masterListViewController)
-			delegate = masterListViewController
+//			delegate = masterListViewController
 			remove(asChildViewController: groceryViewController)
 		}
 	}

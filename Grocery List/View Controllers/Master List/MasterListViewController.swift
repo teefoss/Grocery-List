@@ -8,13 +8,10 @@
 
 import UIKit
 
-class MasterListViewController: UITableViewController, AddItemViewControllerDelegate, ToolbarDelegate {
+class MasterListViewController: UITableViewController, AddItemViewControllerDelegate {
 	
 
 	var sections: [Section] = []
-	
-	
-	
 	
 	
 	
@@ -24,8 +21,9 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
         super.viewDidLoad()
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationItem.largeTitleDisplayMode = .never
-		title = "Master List"
-		
+		navigationItem.rightBarButtonItem = editButtonItem
+		title = "Saved Items"
+		toolbarItems = addToolbarItems()
     }
 	
 
@@ -33,18 +31,42 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		super.viewWillAppear(animated)
 		loadSections()
 		tableView.reloadData()
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
+		setTableViewBackground(text: "No Items")
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		saveSections()
 	}
 	
+	func addToolbarItems() -> [UIBarButtonItem] {
+		
+		// Set up Aisles Button
+		let sectionsButton = UIButton()
+		sectionsButton.frame = CGRect.zero
+		sectionsButton.setTitle("  Edit Aisles  ", for: .normal)
+		sectionsButton.setTitle("  Edit Aisles  ", for: .highlighted)
+		sectionsButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
+		sectionsButton.backgroundColor = appColor
+		sectionsButton.layer.cornerRadius = 5.0
+		sectionsButton.sizeToFit()
+		sectionsButton.addTarget(self, action: #selector(aislesPressed), for: .touchUpInside)
 
-	
+		// Set up Toolbar
+		var items = [UIBarButtonItem]()
+		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
+		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+		let sectionsButtonItem = UIBarButtonItem(customView: sectionsButton)
+		let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePressed))
+		
+		items.append(deleteButton)
+		items.append(flexSpace)
+		items.append(sectionsButtonItem)
+		items.append(flexSpace)
+		items.append(addButton)
+		
+		return items
+	}
+
 	
 	
 	
@@ -66,21 +88,28 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
         return sections[section].masterListItem.count
     }
 	
-//	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: tableView.frame.size.height))
-//		let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: tableView.frame.size.height))
-//		label.font = UIFont.systemFont(ofSize: 14.0)
-//		label.textColor = UIColor.darkText
-//		label.textAlignment = NSTextAlignment.center
-//		label.text = sections[section].name
-//		view.addSubview(label)
-//		view.backgroundColor = UIColor.groupTableViewBackground
-//
-//		return view
-//	}
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
+		let label = UILabel(frame: CGRect(x: 16, y: 20, width: tableView.frame.size.width, height: 44))
+		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+		label.textColor = appColor
+		label.text = sections[section].name
+		view.addSubview(label)
+		view.backgroundColor = UIColor.groupTableViewBackground		
+		return view
+	}
+
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 64
+	}
+
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNormalMagnitude
+	}
+	
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return "\(sections[section].name)   \(sections[section].masterListItem.count)"
+		return "\(sections[section].name)"
 	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,57 +161,57 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 
 	
 	
-	
+	//
 	// Editing
+	//
 	
-	
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
+	// Enable Reordering of Rows
+	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+		return true
+	}
 
-    // Override to support editing the table view.
+    // Handle Deleting Rows
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 			sections[indexPath.section].masterListItem.remove(at: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .fade)
 			saveSections()
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+			setTableViewBackground(text: "No Items")
+
+        }
     }
 
-    // Override to support rearranging the table view.
+    // Handle Reordering Rows
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
 		let itemToMove = sections[fromIndexPath.section].masterListItem[fromIndexPath.row]
-		sections[fromIndexPath.section].masterListItem.remove(at: fromIndexPath.row)
-		sections[to.section].groceryItem.insert(itemToMove, at: to.row)
-		saveSections()
-		tableView.reloadData()
-    }
 
-	// Limit moving rows to current section
-	override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-		if sourceIndexPath.section != proposedDestinationIndexPath.section {
-			var row = 0
-			if sourceIndexPath.section < proposedDestinationIndexPath.section {
-				row = self.tableView(tableView, numberOfRowsInSection: sourceIndexPath.section) - 1
-			}
-			return IndexPath(row: row, section: sourceIndexPath.section)
-		}
-		return proposedDestinationIndexPath
+		sections[fromIndexPath.section].masterListItem.remove(at: fromIndexPath.row)
+		sections[to.section].masterListItem.insert(itemToMove, at: to.row)
+		saveSections()
+		
+		
+    }
+	
+	
+	
+	@objc func deletePressed() {
+		let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+		alert.addAction(UIAlertAction(title: "Delete All", style: .destructive, handler: { alert -> Void in self.deleteAll() }))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {alert -> Void in }))
+		present(alert, animated: true, completion: nil)
 	}
 
-	
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
+	func deleteAll() {
+		//var indices = [IndexPath]()
+		for i in sections.indices {
+			sections[i].masterListItem.removeAll()
+		}
+		saveSections()
+		UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve, animations: { self.tableView.reloadData() }, completion: nil)
+		setTableViewBackground(text: "No Items")
+		isEditing = false
+	}
+
 
 	
 	
@@ -213,11 +242,6 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 	@objc func aislesPressed() {
 		performSegue(withIdentifier: "AddSection", sender: nil)
 	}
-	
-	@objc func editPressed() {
-		
-	}
-
 	
 
 	
@@ -269,5 +293,42 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 			}
 		} }
 
+	
+	
+	
+	// MARK: - Empty View Methods
+	
+	// Call these methods in viewDidLoad(), commit EditingStyle, deleteAll()
+	
+	func setTableViewBackground(text: String) {
+		
+		if sections.isEmpty {
+			tableView.backgroundView = setupEmptyView(text: text)
+		} else {
+			tableView.backgroundView = nil
+		}
+		
+	}
+	
+	
+	func setupEmptyView(text: String) -> UIView {
+		let emptyView = UIView()
+		let label = UILabel()
+		emptyView.frame = tableView.frame
+		emptyView.backgroundColor = UIColor.groupTableViewBackground
+		label.frame = CGRect.zero
+		label.text = text
+		label.font = UIFont.boldSystemFont(ofSize: 36.0)
+		label.textColor = UIColor.lightGray
+		//		label.shadowColor = UIColor.lightGray
+		//		label.shadowOffset = CGSize(width: 1.0, height: 1.0)
+		label.sizeToFit()
+		label.center = emptyView.center
+		emptyView.addSubview(label)
+		return emptyView
+	}
+
+	
+	
 
 }
