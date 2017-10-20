@@ -1,15 +1,8 @@
-//
-//  Extentions.swift
-//  Grocery List
-//
-//  Created by Thomas Foster on 10/11/17.
-//  Copyright © 2017 Thomas Foster. All rights reserved.
-//
-
+/*
 import UIKit
 
-extension UITableViewController
-{
+extension UITableViewController {
+	
 	func hideKeyboard()
 	{
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(
@@ -23,4 +16,6 @@ extension UITableViewController
 	{
 		view.endEditing(true)
 	}
+
 }
+*/

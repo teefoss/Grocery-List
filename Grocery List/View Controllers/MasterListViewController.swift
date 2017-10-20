@@ -1,20 +1,17 @@
-//
-//  MasterListViewController.swift
-//  Grocery List
-//
-//  Created by Thomas Foster on 9/28/17.
-//  Copyright © 2017 Thomas Foster. All rights reserved.
-//
+/**
+
+AKA Saved Items List in app
+Segue'd from Grocery List
+
+*/
 
 import UIKit
 
-class MasterListViewController: UITableViewController, AddItemViewControllerDelegate {
+class MasterListViewController: ListViewController, AddItemViewControllerDelegate {
 	
 
-	var sections: [Section] = []
 	
-	
-	
+
 	// MARK: - Life Cycle
 	
     override func viewDidLoad() {
@@ -24,38 +21,28 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		navigationItem.rightBarButtonItem = editButtonItem
 		title = "Saved Items"
 		toolbarItems = addToolbarItems()
+		hideKeyboard()
     }
 	
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		loadSections()
+		loadData()
 		tableView.reloadData()
 		setTableViewBackground(text: "No Items")
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		saveSections()
+		saveData()
 	}
 	
 	func addToolbarItems() -> [UIBarButtonItem] {
 		
-		// Set up Aisles Button
-		let sectionsButton = UIButton()
-		sectionsButton.frame = CGRect.zero
-		sectionsButton.setTitle("  Edit Aisles  ", for: .normal)
-		sectionsButton.setTitle("  Edit Aisles  ", for: .highlighted)
-		sectionsButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
-		sectionsButton.backgroundColor = appColor
-		sectionsButton.layer.cornerRadius = 5.0
-		sectionsButton.sizeToFit()
-		sectionsButton.addTarget(self, action: #selector(aislesPressed), for: .touchUpInside)
-
 		// Set up Toolbar
 		var items = [UIBarButtonItem]()
 		let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
 		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-		let sectionsButtonItem = UIBarButtonItem(customView: sectionsButton)
+		let sectionsButtonItem = UIBarButtonItem(title: "Edit Aisles", style: .plain, target: self, action: #selector(self.aislesPressed))
 		let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePressed))
 		
 		items.append(deleteButton)
@@ -89,12 +76,27 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
     }
 	
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		
+		let width = tableView.frame.size.width
+		let margin: CGFloat = 16.0
+		let labelWidth = width*0.7
+		let countLabelWidth = width*0.2
+		let countLabelX = tableView.frame.maxX - countLabelWidth - margin
+		
 		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
-		let label = UILabel(frame: CGRect(x: 16, y: 20, width: tableView.frame.size.width, height: 44))
+		let label = UILabel(frame: CGRect(x: 16, y: 20, width: labelWidth, height: 44))
+		let countLabel = UILabel(frame: CGRect(x: countLabelX, y: 20, width: countLabelWidth, height: 44))
 		label.font = UIFont.boldSystemFont(ofSize: 15.0)
 		label.textColor = appColor
 		label.text = sections[section].name
+
+		countLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
+		countLabel.textColor = appColor
+		countLabel.textAlignment = .right
+		countLabel.text = "\(sections[section].masterListItem.count)"
+
 		view.addSubview(label)
+		view.addSubview(countLabel)
 		view.backgroundColor = UIColor.groupTableViewBackground		
 		return view
 	}
@@ -117,7 +119,7 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		let cell = tableView.dequeueReusableCell(withIdentifier: "MasterListCell", for: indexPath) as! MasterListCell
 		let item = sections[indexPath.section].masterListItem[indexPath.row]
 		var index: Int = 0
-		cell.label?.text = item.name
+		cell.textField.text = item.name
 		item.isOnGroceryList = false
 
 		
@@ -139,7 +141,7 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		cell.plus = {
 			if item.isOnGroceryList == false {
 				item.isOnGroceryList = true
-				self.sections[indexPath.section].addToGroceryList(item: item)
+				self.sections[indexPath.section].groceryItem.append(item)
 				print("added item: item.isOnGroceryList = \(item.isOnGroceryList)")
 			} else {
 				item.isOnGroceryList = false
@@ -152,7 +154,7 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 
 			}
 			cell.plusButton.showPlus = !item.isOnGroceryList
-			self.saveSections()
+			self.saveData()
 			print("\(item.isOnGroceryList)")
 		}
 
@@ -165,17 +167,13 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 	// Editing
 	//
 	
-	// Enable Reordering of Rows
-	override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-		return true
-	}
 
     // Handle Deleting Rows
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 			sections[indexPath.section].masterListItem.remove(at: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .fade)
-			saveSections()
+			saveData()
 			setTableViewBackground(text: "No Items")
 
         }
@@ -187,7 +185,7 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 
 		sections[fromIndexPath.section].masterListItem.remove(at: fromIndexPath.row)
 		sections[to.section].masterListItem.insert(itemToMove, at: to.row)
-		saveSections()
+		saveData()
 		
 		
     }
@@ -206,7 +204,7 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 		for i in sections.indices {
 			sections[i].masterListItem.removeAll()
 		}
-		saveSections()
+		saveData()
 		UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve, animations: { self.tableView.reloadData() }, completion: nil)
 		setTableViewBackground(text: "No Items")
 		isEditing = false
@@ -218,20 +216,20 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 	
 	
 	
-	
+	//
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+	//
+	
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
 
 		if segue.identifier == "AddToMasterList" {
-			let addVC = segue.destination as! AddItemViewController
+			let navigation = segue.destination as! UINavigationController
+			let addVC = navigation.viewControllers[0] as! AddItemViewController
 			addVC.setML = true
 			addVC.setGL = false
 			addVC.sections = self.sections
 			addVC.delegate = self
+
 		}
 	}
 	
@@ -251,56 +249,33 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 	
 	// MARK: - Add Item Delegate Methods
 	
-	func didCancel(_ controller: AddItemViewController) {
-		navigationController?.popViewController(animated: true)
-	}
 	
 	func didAddItem(_ controller: AddItemViewController, didAddItem item: [Section]) {
 		sections = item
-		saveSections()
+		saveData()
 		tableView.reloadData()
-		navigationController?.popViewController(animated: true)
 	}
+
 
 	
 	
+	// MARK: - Text Field Stuff
 	
-	
-	// MARK: - Data
-	
-	func saveSections() {
-		let encoder = PropertyListEncoder()
-		do {
-			let data = try encoder.encode(sections)
-			try data.write(to: sectionsFile(), options: .atomic)
-		} catch {
-			print("Error encoding item array")
-		}
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		let location = textField.convert(textField.bounds.origin, to: self.tableView)
+		let textFieldIndexPath = self.tableView.indexPathForRow(at: location)
+
+		sections[(textFieldIndexPath?.section)!].masterListItem[(textFieldIndexPath?.row)!].name = textField.text!
+		tableView.reloadData()
+		saveData()
+		isEditingTextField = false
+
 	}
 	
-	func loadSections() {
-		// 1
-		let path = sectionsFile()
-		// 2
-		if let data = try? Data(contentsOf: path) {
-			// 3
-			let decoder = PropertyListDecoder()
-			do {
-				// 4
-				sections = try decoder.decode([Section].self, from: data)
-			} catch {
-				print("Error decoding item array")
-			}
-		} }
-
 	
-	
-	
-	// MARK: - Empty View Methods
-	
-	// Call these methods in viewDidLoad(), commit EditingStyle, deleteAll()
 	
 	func setTableViewBackground(text: String) {
+		
 		
 		if sections.isEmpty {
 			tableView.backgroundView = setupEmptyView(text: text)
@@ -308,24 +283,6 @@ class MasterListViewController: UITableViewController, AddItemViewControllerDele
 			tableView.backgroundView = nil
 		}
 		
-	}
-	
-	
-	func setupEmptyView(text: String) -> UIView {
-		let emptyView = UIView()
-		let label = UILabel()
-		emptyView.frame = tableView.frame
-		emptyView.backgroundColor = UIColor.groupTableViewBackground
-		label.frame = CGRect.zero
-		label.text = text
-		label.font = UIFont.boldSystemFont(ofSize: 36.0)
-		label.textColor = UIColor.lightGray
-		//		label.shadowColor = UIColor.lightGray
-		//		label.shadowOffset = CGSize(width: 1.0, height: 1.0)
-		label.sizeToFit()
-		label.center = emptyView.center
-		emptyView.addSubview(label)
-		return emptyView
 	}
 
 	

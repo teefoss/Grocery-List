@@ -19,15 +19,15 @@
 		3050C6601F79BDCB00B3476A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C65F1F79BDCB00B3476A /* Section.swift */; };
 		3050C66B1F79DC4E00B3476A /* AddSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66A1F79DC4E00B3476A /* AddSectionViewController.swift */; };
 		3050C66D1F79F35700B3476A /* GroceriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66C1F79F35700B3476A /* GroceriesViewController.swift */; };
-		3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C66E1F7A97FC00B3476A /* DataFunctions.swift */; };
 		3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6901F7B31F500B3476A /* AddItemViewController.swift */; };
 		3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */; };
 		306231EC1F8E58C0000EEE84 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306231EB1F8E58C0000EEE84 /* Extentions.swift */; };
+		306231EE1F8E5B6F000EEE84 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306231ED1F8E5B6F000EEE84 /* ListViewController.swift */; };
 		3067D5E81F7DF61D00A75527 /* MasterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */; };
 		3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5E91F7DF74300A75527 /* MasterListCell.swift */; };
 		3067D5EC1F7DF76600A75527 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5EB1F7DF76600A75527 /* AddButton.swift */; };
 		307300E01F82956A003AC208 /* AddItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307300DF1F82956A003AC208 /* AddItemCell.swift */; };
-		307300E41F847028003AC208 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307300E31F847028003AC208 /* MasterViewController.swift */; };
+		30C5B0101F940DA500B667CE /* SectionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5B00F1F940DA400B667CE /* SectionsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,15 +45,15 @@
 		3050C65F1F79BDCB00B3476A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		3050C66A1F79DC4E00B3476A /* AddSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSectionViewController.swift; sourceTree = "<group>"; };
 		3050C66C1F79F35700B3476A /* GroceriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceriesViewController.swift; sourceTree = "<group>"; };
-		3050C66E1F7A97FC00B3476A /* DataFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFunctions.swift; sourceTree = "<group>"; };
 		3050C6901F7B31F500B3476A /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsListViewController.swift; sourceTree = "<group>"; };
 		306231EB1F8E58C0000EEE84 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		306231ED1F8E5B6F000EEE84 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListViewController.swift; sourceTree = "<group>"; };
 		3067D5E91F7DF74300A75527 /* MasterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterListCell.swift; sourceTree = "<group>"; };
 		3067D5EB1F7DF76600A75527 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		307300DF1F82956A003AC208 /* AddItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCell.swift; sourceTree = "<group>"; };
-		307300E31F847028003AC208 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		30C5B00F1F940DA400B667CE /* SectionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +72,7 @@
 			children = (
 				300F2FFE1F7C19220014094B /* GroceryItemCell.swift */,
 				3067D5E91F7DF74300A75527 /* MasterListCell.swift */,
+				30C5B00F1F940DA400B667CE /* SectionsCell.swift */,
 				300F2FFC1F7C18BC0014094B /* CheckBox.swift */,
 				3067D5EB1F7DF76600A75527 /* AddButton.swift */,
 				307300DF1F82956A003AC208 /* AddItemCell.swift */,
@@ -100,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				3042CDB91F78508C00DC6FAD /* AppDelegate.swift */,
-				307300E31F847028003AC208 /* MasterViewController.swift */,
 				30052A0A1F86DB52009C3927 /* Constants.swift */,
 				306231EB1F8E58C0000EEE84 /* Extentions.swift */,
 				30BE01EB1F7E71AE009B8B0C /* Model */,
@@ -123,38 +123,30 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
-		3050C6921F7B328600B3476A /* Groceries */ = {
+		306231EF1F904E2F000EEE84 /* Add Item */ = {
 			isa = PBXGroup;
 			children = (
-				3050C66C1F79F35700B3476A /* GroceriesViewController.swift */,
 				3050C6901F7B31F500B3476A /* AddItemViewController.swift */,
 				3050C6931F7BDBE800B3476A /* SectionsListViewController.swift */,
 			);
-			path = Groceries;
+			path = "Add Item";
 			sourceTree = "<group>";
 		};
 		30BE01EB1F7E71AE009B8B0C /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				3050C65F1F79BDCB00B3476A /* Section.swift */,
-				3050C66E1F7A97FC00B3476A /* DataFunctions.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		30BE01EC1F7E71C0009B8B0C /* Master List */ = {
-			isa = PBXGroup;
-			children = (
-				3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */,
-			);
-			path = "Master List";
 			sourceTree = "<group>";
 		};
 		30BE01ED1F7E71D7009B8B0C /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				30BE01EC1F7E71C0009B8B0C /* Master List */,
-				3050C6921F7B328600B3476A /* Groceries */,
+				306231ED1F8E5B6F000EEE84 /* ListViewController.swift */,
+				3050C66C1F79F35700B3476A /* GroceriesViewController.swift */,
+				3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */,
+				306231EF1F904E2F000EEE84 /* Add Item */,
 				3050C6631F79C38E00B3476A /* Sections */,
 			);
 			path = "View Controllers";
@@ -237,9 +229,9 @@
 				300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */,
 				3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */,
 				3050C6601F79BDCB00B3476A /* Section.swift in Sources */,
-				307300E41F847028003AC208 /* MasterViewController.swift in Sources */,
-				3050C66F1F7A97FC00B3476A /* DataFunctions.swift in Sources */,
+				30C5B0101F940DA500B667CE /* SectionsCell.swift in Sources */,
 				30052A0F1F87C9D4009C3927 /* EmptyView.swift in Sources */,
+				306231EE1F8E5B6F000EEE84 /* ListViewController.swift in Sources */,
 				306231EC1F8E58C0000EEE84 /* Extentions.swift in Sources */,
 				30052A0B1F86DB52009C3927 /* Constants.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,

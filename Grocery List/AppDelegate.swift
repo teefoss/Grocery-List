@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Grocery List
-//
-//  Created by Thomas Foster on 9/24/17.
-//  Copyright © 2017 Thomas Foster. All rights reserved.
-//
 
 import UIKit
 
@@ -12,10 +5,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+		UIApplication.shared.statusBarStyle = .lightContent
 		return true
 	}
 

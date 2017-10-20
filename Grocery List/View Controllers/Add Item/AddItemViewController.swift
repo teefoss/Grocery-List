@@ -1,25 +1,31 @@
-//
-//  AddItemViewController.swift
-//  Grocery List
-//
-//  Created by Thomas Foster on 9/26/17.
-//  Copyright © 2017 Thomas Foster. All rights reserved.
-//
-
 import UIKit
 
+
+
 protocol AddItemViewControllerDelegate: class {
-	func didCancel(_ controller: AddItemViewController)
 	func didAddItem(_ controller: AddItemViewController, didAddItem item: [Section])
 }
 
+
+
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
+	
+	
 	var sections: [Section] = []
 	var delegate: AddItemViewControllerDelegate?
 	
-	var setGL: Bool = false
-	var setML: Bool = true
+	var setGL: Bool = false		// set by the delegate upon segue
+	var setML: Bool = true		// "	"
+	
+	
+	
+	
+	
+	
+	// MARK: - Interface Builder
+	
+	
 	
 	@IBOutlet weak var nameTextField: UITextField!
 	@IBOutlet weak var doneButton: UIBarButtonItem!
@@ -43,33 +49,41 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		}
 	}
 	
+	@IBAction func defaultsPressed(_ sender: Any) {
+		sections.removeAll()
+		sections = defaultData()
+		delegate?.didAddItem(self, didAddItem: sections)
+		self.dismiss(animated: true, completion: nil)
+	}
+
+	
 	
 	
 	
 	
 	// MARK: - Life Cycle
+
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// set up navigation bar
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
 		navigationController?.navigationBar.tintColor = UIColor.white
 		navigationController?.navigationBar.barTintColor = appColor
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.isOpaque = true
 
-		
-		
+		// set up switch states
+		// if segue-ing from Grocery List (GL) is on, ML is off and vice versa
 		grocerySwitch.isOn = setGL
 		masterListSwitch.isOn = setML
-		
-		// Uncomment the following line to preserve selection between presentations
-		// self.clearsSelectionOnViewWillAppear = false
-		
-		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-		// self.navigationItem.rightBarButtonItem = self.editButtonItem
 	}
 	
+	
+	
+	// FIXME: No selected row should disable saving and present alert
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		nameTextField.becomeFirstResponder()
@@ -84,6 +98,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		}
 	}
 
+
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		view.endEditing(true)
 	}
@@ -93,19 +109,20 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	
 	
-	// Done Button
+	// MARK: - Buttons
 	
 	@IBAction func done() {
-		let addedItem = Item()
-		addedItem.name = nameTextField.text!
-		addedItem.isInCart = false
+		
+		let addedItem = Item(name: nameTextField.text!, isInCart: false, isOnGroceryList: setGL)
+
+		// Add Item to data model
 		for i in sections.indices {
 			if sections[i].isSelected {
 				if grocerySwitch.isOn {
-					sections[i].addToGroceryList(item: addedItem)
+					sections[i].groceryItem.append(addedItem)
 				}
 				if masterListSwitch.isOn {
-					sections[i].addToMasterList(item: addedItem)
+					sections[i].masterListItem.append(addedItem)
 				}
 			}
 		}
@@ -114,9 +131,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	}
 	
 	@IBAction func cancel() {
-		delegate?.didCancel(self)
 		self.dismiss(animated: true, completion: nil)
-
 	}
 	
 	
@@ -124,14 +139,6 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	
 
-	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		let oldText = nameTextField.text!
-		let stringRange = Range(range, in: oldText)!
-		let newText = oldText.replacingCharacters(in: stringRange, with: string)
-		
-		doneButton.isEnabled = !newText.isEmpty
-		return true
-	}
 	
 	
 	
@@ -139,25 +146,27 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
     // MARK: - Table view data source
 
+	
+	
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+		if Constants.isTesting { return 4 }		//adds row with "restore defaults" button, for testing
+		else { return 3 }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-		if section == 2 {	// lists sections
-			return 2
-		} else {
-			return 1		// name & aisle sections
-		}
+		if section == 2 { return 2 }	// lists sections
+		else { return 1 }				// name & aisle sections
 	}
 
 
 
 
-
+	
+	
     // MARK: - Navigation
-
+	
+	
+	
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -166,5 +175,24 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 			sectionListVC.sections = self.sections
 		}
 	}
+	
+
+	
+	
+	
+	
+	// MARK: - Text Field Delegate Methods
+
+	
+	
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		let oldText = nameTextField.text!
+		let stringRange = Range(range, in: oldText)!
+		let newText = oldText.replacingCharacters(in: stringRange, with: string)
+		
+		doneButton.isEnabled = !newText.isEmpty
+		return true
+	}
+
 
 }
