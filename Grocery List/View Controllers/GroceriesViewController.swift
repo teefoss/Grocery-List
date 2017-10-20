@@ -36,9 +36,7 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		navigationController?.toolbar.tintColor = appColor
 		navigationController?.toolbar.barTintColor = buttonColor
 		toolbarItems = addToolbarItems()
-		
-		hideKeyboard()
-		
+				
 	}
 	
 	

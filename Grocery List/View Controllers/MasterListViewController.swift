@@ -16,12 +16,20 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		title = "Saved Items"
+
+		// set up navigation bar
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationItem.largeTitleDisplayMode = .never
 		navigationItem.rightBarButtonItem = editButtonItem
-		title = "Saved Items"
+		
+		// set up toolbar
 		toolbarItems = addToolbarItems()
-		hideKeyboard()
+		
+		tableView.estimatedRowHeight = 44.0
+		tableView.rowHeight = UITableViewAutomaticDimension
+
     }
 	
 
@@ -72,9 +80,12 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return sections[section].masterListItem.count
+		return sections[section].isCollapsed ? 0 : sections[section].masterListItem.count
     }
 	
+	
+	// Old header
+	/*
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		
 		let width = tableView.frame.size.width
@@ -100,18 +111,34 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		view.backgroundColor = UIColor.groupTableViewBackground		
 		return view
 	}
+	*/
+	
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: "header")
+		
+		header.titleLabel.text = sections[section].name
+		header.titleLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
+		header.titleLabel.textColor = appColor
+		
+		header.arrowLabel.text = ">"
+		header.setCollapsed(sections[section].isCollapsed)
+		
+		header.section = section
+		header.delegate = self
+		
+		return header
+	}
 
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 64
+		return 44
 	}
 
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return CGFloat.leastNormalMagnitude
 	}
-	
-	
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return "\(sections[section].name)"
+		
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return UITableViewAutomaticDimension
 	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -276,7 +303,6 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	
 	func setTableViewBackground(text: String) {
 		
-		
 		if sections.isEmpty {
 			tableView.backgroundView = setupEmptyView(text: text)
 		} else {
@@ -284,8 +310,22 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		}
 		
 	}
-
-	
-	
-
 }
+
+
+
+
+extension MasterListViewController: CollapsibleTableViewHeaderDelegate {
+	
+	func toggleSection(_ header: CollapsibleTableViewHeader, section: Int) {
+		let isCollapsed = !sections[section].isCollapsed
+		
+		// Toggle collapse
+		sections[section].isCollapsed = isCollapsed
+		
+		// reload whole section
+		tableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
+	}
+	
+}
+

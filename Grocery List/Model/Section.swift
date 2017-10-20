@@ -9,6 +9,7 @@ class Section: NSObject, Codable {
 	var groceryItem: [Item] = []		// grocery list items
 	var masterListItem: [Item] = []		// saved items list
 	var isSelected: Bool = false		// for selecting which section an item is in while adding an item
+	var isCollapsed: Bool = false
 	
 }
 

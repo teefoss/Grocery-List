@@ -28,6 +28,8 @@
 		3067D5EC1F7DF76600A75527 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3067D5EB1F7DF76600A75527 /* AddButton.swift */; };
 		307300E01F82956A003AC208 /* AddItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307300DF1F82956A003AC208 /* AddItemCell.swift */; };
 		30C5B0101F940DA500B667CE /* SectionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C5B00F1F940DA400B667CE /* SectionsCell.swift */; };
+		30CCF42E1F9A56A7003CAD0C /* CollapsibleTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CCF42D1F9A56A7003CAD0C /* CollapsibleTableViewHeader.swift */; };
+		30CCF4301F9A70B8003CAD0C /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CCF42F1F9A70B8003CAD0C /* Arrow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		3067D5EB1F7DF76600A75527 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		307300DF1F82956A003AC208 /* AddItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCell.swift; sourceTree = "<group>"; };
 		30C5B00F1F940DA400B667CE /* SectionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsCell.swift; sourceTree = "<group>"; };
+		30CCF42D1F9A56A7003CAD0C /* CollapsibleTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsibleTableViewHeader.swift; sourceTree = "<group>"; };
+		30CCF42F1F9A70B8003CAD0C /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 				3067D5EB1F7DF76600A75527 /* AddButton.swift */,
 				307300DF1F82956A003AC208 /* AddItemCell.swift */,
 				30052A0E1F87C9D4009C3927 /* EmptyView.swift */,
+				30CCF42D1F9A56A7003CAD0C /* CollapsibleTableViewHeader.swift */,
+				30CCF42F1F9A70B8003CAD0C /* Arrow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -229,6 +235,7 @@
 				300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */,
 				3067D5EA1F7DF74300A75527 /* MasterListCell.swift in Sources */,
 				3050C6601F79BDCB00B3476A /* Section.swift in Sources */,
+				30CCF42E1F9A56A7003CAD0C /* CollapsibleTableViewHeader.swift in Sources */,
 				30C5B0101F940DA500B667CE /* SectionsCell.swift in Sources */,
 				30052A0F1F87C9D4009C3927 /* EmptyView.swift in Sources */,
 				306231EE1F8E5B6F000EEE84 /* ListViewController.swift in Sources */,
@@ -236,6 +243,7 @@
 				30052A0B1F86DB52009C3927 /* Constants.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
 				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
+				30CCF4301F9A70B8003CAD0C /* Arrow.swift in Sources */,
 				3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */,
 				3050C66B1F79DC4E00B3476A /* AddSectionViewController.swift in Sources */,
 				307300E01F82956A003AC208 /* AddItemCell.swift in Sources */,

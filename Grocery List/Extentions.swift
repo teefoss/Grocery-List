@@ -1,21 +1,17 @@
-/*
+
 import UIKit
 
-extension UITableViewController {
+extension UIView {
 	
-	func hideKeyboard()
-	{
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-			target: self,
-			action: #selector(UITableViewController.dismissKeyboard))
+	func rotate(_ toValue: CGFloat, duration: CFTimeInterval = 0.2) {
+		let animation = CABasicAnimation(keyPath: "transform.rotation")
 		
-		view.addGestureRecognizer(tap)
+		animation.toValue = toValue
+		animation.duration = duration
+		animation.isRemovedOnCompletion = false
+		animation.fillMode = kCAFillModeForwards
+		
+		self.layer.add(animation, forKey: nil)
 	}
 	
-	@objc func dismissKeyboard()
-	{
-		view.endEditing(true)
-	}
-
 }
-*/
