@@ -36,7 +36,11 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		navigationController?.toolbar.tintColor = appColor
 		navigationController?.toolbar.barTintColor = buttonColor
 		toolbarItems = addToolbarItems()
-				
+		
+		let dictionary: [String : Any] = ["FirstTime" : true]
+		UserDefaults.standard.register(defaults: dictionary)
+
+		
 	}
 	
 	
@@ -48,7 +52,9 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
-		
+
+		handleFirstTime()
+
 		loadData()
 		tableView.reloadData()
 		
@@ -70,6 +76,13 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deletePressed))
 		let sectionsButtonItem = UIBarButtonItem(title: "Edit Aisles", style: .plain, target: self, action: #selector(self.aislesPressed))
 		
+//		let font = UIFont(name: "Helvetica", size: 26.0)
+//		let optionsTitle = NSString(string: "\u{2699}\u{0000FE0E}") as String
+		
+//		let optionsButton = UIBarButtonItem(title: optionsTitle, style: .plain, target: self, action: nil)
+//		optionsButton.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+//		optionsButton.setTitlePositionAdjustment(UIOffset(horizontal: 0.0, vertical: -25.0), for: .default)
+		
 		items.append(deleteButton)
 		items.append(flexSpace)
 		items.append(sectionsButtonItem)
@@ -77,6 +90,19 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		items.append(addButton)
 		
 		return items
+	}
+
+	
+	
+	func handleFirstTime() {
+		let defaults = UserDefaults.standard
+		let firstTime = defaults.bool(forKey: "FirstTime")
+		
+		if firstTime {
+			sections = loadDefaultData()
+			defaults.set(false, forKey: "FirstTime")
+			defaults.synchronize()
+		}
 	}
 
 
@@ -271,7 +297,19 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 	}
 	
 	@objc func addPressed() {
-		performSegue(withIdentifier: "AddItem", sender: nil)
+		if sections.isEmpty {
+			
+			let alert = UIAlertController(title: "Whoops!", message: "There are no aisles to put an item in. Press OK to create one.", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+				self.performSegue(withIdentifier: "AddSection_GroceriesVC", sender: nil)
+			}))
+			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+			self.present(alert, animated: true, completion: nil)
+
+			
+		} else {
+			performSegue(withIdentifier: "AddItem", sender: nil)
+		}
 	}
 	
 	@objc func aislesPressed() {
@@ -322,7 +360,8 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		let indexPath = self.tableView.indexPathForRow(at: location)
 
 		// Store the text
-		sections[(indexPath?.section)!].groceryItem[(indexPath?.row)!].name = textField.text!
+		let trimmedString = textField.text!.trimmingCharacters(in: .whitespaces)
+		sections[(indexPath?.section)!].groceryItem[(indexPath?.row)!].name = trimmedString
 		tableView.reloadData()
 		saveData()
 		

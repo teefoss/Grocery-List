@@ -261,7 +261,17 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	}
 	
 	@objc func addPressed() {
-		performSegue(withIdentifier: "AddToMasterList", sender: nil)
+		
+		if sections.isEmpty {
+			let alert = UIAlertController(title: "Whoops!", message: "There are no aisles to put an item in. Press OK to create one.", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+				self.performSegue(withIdentifier: "AddSection", sender: nil)
+			}))
+			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+			self.present(alert, animated: true, completion: nil)
+		} else {
+			performSegue(withIdentifier: "AddToMasterList", sender: nil)
+		}
 	}
 	
 	@objc func aislesPressed() {
@@ -292,7 +302,8 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		let location = textField.convert(textField.bounds.origin, to: self.tableView)
 		let textFieldIndexPath = self.tableView.indexPathForRow(at: location)
 
-		sections[(textFieldIndexPath?.section)!].masterListItem[(textFieldIndexPath?.row)!].name = textField.text!
+		let trimmedString = textField.text!.trimmingCharacters(in: .whitespaces)
+		sections[(textFieldIndexPath?.section)!].masterListItem[(textFieldIndexPath?.row)!].name = trimmedString
 		tableView.reloadData()
 		saveData()
 		isEditingTextField = false

@@ -67,7 +67,8 @@ class AddSectionViewController: UITableViewController, UITextFieldDelegate {
 	
 	@IBAction func done() {
 		let section = Section()
-		section.name = textField.text!
+		let trimmedString = textField.text!.trimmingCharacters(in: .whitespaces)
+		section.name = trimmedString
 		delegate?.AddSectionViewController(self, didFinishAdding: section)
 	}
 

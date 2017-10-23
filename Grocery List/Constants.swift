@@ -8,20 +8,20 @@ let navigationBarColor = UIColor(red: 235/255, green: 25/255, blue: 65/255, alph
 let buttonColor = UIColor.white
 
 struct Constants {
-	static var isTesting = true
+	static var isTesting = false
 }
 
-func defaultData() -> [Section] {
+func testData() -> [Section] {
 	
 	var fullList: [Section] = []
 	
 	let produceSection = Section()
 	produceSection.name = "Produce Section"
 	produceSection.isSelected = true
-	let apples = Item(name: "Apples", isInCart: false, isOnGroceryList: true)
-	let bananas = Item(name: "Bananas", isInCart: false, isOnGroceryList: true)
-	let carrots = Item(name: "Carrots", isInCart: false, isOnGroceryList: false)
-	let celery = Item(name: "Celery", isInCart: false, isOnGroceryList: false)
+	let apples = Item(name: "Apples")
+	let bananas = Item(name: "Bananas")
+	let carrots = Item(name: "Carrots")
+	let celery = Item(name: "Celery")
 	produceSection.masterListItem.append(apples)
 	produceSection.masterListItem.append(bananas)
 	produceSection.masterListItem.append(carrots)
@@ -30,9 +30,9 @@ func defaultData() -> [Section] {
 	
 	let deliSection = Section()
 	deliSection.name = "Deli"
-	let cheese = Item(name: "Cheese", isInCart: false, isOnGroceryList: true)
-	let meat = Item(name: "Lunch Meat", isInCart: false, isOnGroceryList: false)
-	let salad = Item(name: "Potato Salad", isInCart: false, isOnGroceryList: true)
+	let cheese = Item(name: "Cheese")
+	let meat = Item(name: "Lunch Meat")
+	let salad = Item(name: "Potato Salad")
 	deliSection.masterListItem.append(cheese)
 	deliSection.masterListItem.append(meat)
 	deliSection.masterListItem.append(salad)
@@ -40,17 +40,17 @@ func defaultData() -> [Section] {
 	
 	let breadSection = Section()
 	breadSection.name = "Bread Aisle"
-	let bread = Item(name: "Bread", isInCart: false, isOnGroceryList: true)
-	let rolls = Item(name: "Hamburger Rolls", isInCart: false, isOnGroceryList: false)
+	let bread = Item(name: "Bread")
+	let rolls = Item(name: "Hamburger Rolls")
 	breadSection.masterListItem.append(bread)
 	breadSection.masterListItem.append(rolls)
 	fullList.append(breadSection)
 	
 	let dairySection = Section()
 	dairySection.name = "Dairy Section"
-	let milk = Item(name: "Milk", isInCart: false, isOnGroceryList: true)
-	let eggs = Item(name: "Eggs", isInCart: false, isOnGroceryList: true)
-	let butter = Item(name: "Butter", isInCart: false, isOnGroceryList: false)
+	let milk = Item(name: "Milk")
+	let eggs = Item(name: "Eggs")
+	let butter = Item(name: "Butter")
 	dairySection.masterListItem.append(milk)
 	dairySection.masterListItem.append(eggs)
 	dairySection.masterListItem.append(butter)
@@ -58,13 +58,62 @@ func defaultData() -> [Section] {
 	
 	let householdSection = Section()
 	householdSection.name = "Household Items Aisle"
-	let pt = Item(name: "Paper Towels", isInCart: false, isOnGroceryList: true)
-	let tp = Item(name: "Toilet Paper", isInCart: false, isOnGroceryList: false)
+	let pt = Item(name: "Paper Towels")
+	let tp = Item(name: "Toilet Paper")
 	householdSection.masterListItem.append(pt)
 	householdSection.masterListItem.append(tp)
 	fullList.append(householdSection)
 	
 	return fullList
+}
+
+
+
+
+func loadDefaultData() -> [Section] {
+	
+	var list: [Section] = []
+	
+	let produceSection = Section()
+	produceSection.name = "Produce Section"
+	produceSection.isSelected = true
+	let apples = Item(name: "Apples")
+	let bananas = Item(name: "Bananas")
+	let carrots = Item(name: "Carrots")
+	let celery = Item(name: "Celery")
+	produceSection.masterListItem.append(apples)
+	produceSection.masterListItem.append(bananas)
+	produceSection.groceryItem.append(bananas)
+	produceSection.masterListItem.append(carrots)
+	produceSection.masterListItem.append(celery)
+	produceSection.groceryItem.append(celery)
+	list.append(produceSection)
+	
+	let breadSection = Section()
+	breadSection.name = "Bread Aisle"
+	let bread = Item(name: "Bread")
+	let rolls = Item(name: "Bagels")
+	let jelly = Item(name: "Jelly")
+	breadSection.masterListItem.append(bread)
+	breadSection.groceryItem.append(bread)
+	breadSection.masterListItem.append(rolls)
+	breadSection.masterListItem.append(jelly)
+	list.append(breadSection)
+	
+	let dairySection = Section()
+	dairySection.name = "Dairy Section"
+	let milk = Item(name: "Milk")
+	let eggs = Item(name: "Eggs")
+	let butter = Item(name: "Butter")
+	dairySection.masterListItem.append(milk)
+	dairySection.groceryItem.append(milk)
+	dairySection.masterListItem.append(eggs)
+	dairySection.groceryItem.append(eggs)
+	dairySection.masterListItem.append(butter)
+	list.append(dairySection)
+	
+	
+	return list
 }
 
 

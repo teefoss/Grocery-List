@@ -51,7 +51,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	@IBAction func defaultsPressed(_ sender: Any) {
 		sections.removeAll()
-		sections = defaultData()
+		sections = testData()
 		delegate?.didAddItem(self, didAddItem: sections)
 		self.dismiss(animated: true, completion: nil)
 	}
@@ -92,7 +92,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 				aisleTextLabel.text = sections[index].name
 				break
 			} else {
-				aisleTextLabel.text = "None Selected"
+				sections[0].isSelected = true
+				aisleTextLabel.text = sections[0].name
 			}
 			
 		}
@@ -113,8 +114,9 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	@IBAction func done() {
 		
-		let addedItem = Item(name: nameTextField.text!, isInCart: false, isOnGroceryList: setGL)
-
+		let trimmedString = nameTextField.text!.trimmingCharacters(in: .whitespaces)
+		let addedItem = Item(name: trimmedString)
+		addedItem.isOnGroceryList = setGL
 		// Add Item to data model
 		for i in sections.indices {
 			if sections[i].isSelected {

@@ -196,7 +196,8 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
 		let location = textField.convert(textField.bounds.origin, to: self.tableView)
 		let indexPath = self.tableView.indexPathForRow(at: location)
 		
-		sections[(indexPath?.section)!].name = textField.text!
+		let trimmedString = textField.text!.trimmingCharacters(in: .whitespaces)
+		sections[(indexPath?.row)!].name = trimmedString
 		tableView.reloadData()
 		saveData()
 		isEditingTextField = false
