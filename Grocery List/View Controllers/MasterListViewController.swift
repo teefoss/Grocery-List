@@ -9,16 +9,16 @@ import UIKit
 
 class MasterListViewController: ListViewController, AddItemViewControllerDelegate {
 	
-
 	
-
+	
+	
 	// MARK: - Life Cycle
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
 		title = "Saved Items"
-
+		
 		// set up navigation bar
 		navigationController?.navigationBar.prefersLargeTitles = false
 		navigationItem.largeTitleDisplayMode = .never
@@ -29,10 +29,10 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		
 		tableView.estimatedRowHeight = 44.0
 		tableView.rowHeight = UITableViewAutomaticDimension
-
-    }
+		
+	}
 	
-
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		loadData()
@@ -61,7 +61,6 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		
 		return items
 	}
-
 	
 	
 	
@@ -70,85 +69,117 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	
 	
 	
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return sections.count
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+	
+	
+	// MARK: - Table view data source
+	
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		// #warning Incomplete implementation, return the number of sections
+		return sections.count
+	}
+	
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		// #warning Incomplete implementation, return the number of rows
 		return sections[section].isCollapsed ? 0 : sections[section].masterListItem.count
-    }
+	}
 	
 	
 	// Old header
-	/*
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		
-		let width = tableView.frame.size.width
-		let margin: CGFloat = 16.0
-		let labelWidth = width*0.7
-		let countLabelWidth = width*0.2
-		let countLabelX = tableView.frame.maxX - countLabelWidth - margin
-		
-		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
-		let label = UILabel(frame: CGRect(x: 16, y: 20, width: labelWidth, height: 44))
-		let countLabel = UILabel(frame: CGRect(x: countLabelX, y: 20, width: countLabelWidth, height: 44))
-		label.font = UIFont.boldSystemFont(ofSize: 15.0)
-		label.textColor = appColor
-		label.text = sections[section].name
-
-		countLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
-		countLabel.textColor = appColor
-		countLabel.textAlignment = .right
-		countLabel.text = "\(sections[section].masterListItem.count)"
-
-		view.addSubview(label)
-		view.addSubview(countLabel)
-		view.backgroundColor = UIColor.groupTableViewBackground		
-		return view
-	}
-	*/
+	
+	//	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	//
+	//		let width = tableView.frame.size.width
+	//		let margin: CGFloat = 16.0
+	//		let labelWidth = width*0.7
+	//		let countLabelWidth = width*0.2
+	//		let countLabelX = tableView.frame.maxX - countLabelWidth - margin
+	//
+	//		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
+	//		let label = UILabel(frame: CGRect(x: 16, y: 20, width: labelWidth, height: 44))
+	//		let countLabel = UILabel(frame: CGRect(x: countLabelX, y: 20, width: countLabelWidth, height: 44))
+	//		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+	//		label.textColor = HEADER_COLOR
+	//		label.text = sections[section].name
+	//
+	//		countLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
+	//		countLabel.textColor = HEADER_COLOR
+	//		countLabel.textAlignment = .right
+	//		countLabel.text = "\(sections[section].masterListItem.count)"
+	//
+	//		view.addSubview(label)
+	//		view.addSubview(countLabel)
+	//		view.backgroundColor = UIColor.groupTableViewBackground
+	//
+	//		let tap = UITapGestureRecognizer(target: section, action: #selector(toggleSection(_:section:)))
+	//		view.addGestureRecognizer(tap)
+	//
+	//		return view
+	//	}
+	
 	
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: "header")
 		
-		header.titleLabel.text = sections[section].name
-		header.titleLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
-		header.titleLabel.textColor = appColor
+		let width = tableView.frame.size.width
+		let margin: CGFloat = 16.0
+		let labelWidth = width*0.5
+		let countLabelWidth: CGFloat = 44.0
+		let plusWidth: CGFloat = 28.0
+		let countLabelX = tableView.frame.maxX - countLabelWidth - margin*2 - plusWidth
+		let plusX = tableView.frame.maxX - plusWidth - margin
 		
-		header.arrowLabel.text = ">"
-		header.setCollapsed(sections[section].isCollapsed)
+		//				let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
+		let label = UILabel(frame: CGRect(x: 16, y: 0, width: labelWidth, height: 44))
+		let countLabel = UILabel(frame: CGRect(x: countLabelX, y: 0, width: countLabelWidth, height: 44))
+		let plus = SectionToggle(frame: CGRect(x: plusX, y: 8, width: plusWidth, height: 28))
+		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+		label.textColor = HEADER_COLOR
+		label.text = sections[section].name
+		
+		countLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
+		countLabel.textColor = HEADER_COLOR
+		countLabel.textAlignment = .right
+		countLabel.text = "\(sections[section].masterListItem.count)"
+		
+		plus.backgroundColor = UIColor.clear
+		plus.closed = sections[section].isCollapsed
+		
+		header.addSubview(label)
+		header.addSubview(countLabel)
+		header.addSubview(plus)
+		//view.backgroundColor = UIColor.groupTableViewBackground
+		
+		
+		
+		
+		//header.setCollapsed(sections[section].isCollapsed)
 		
 		header.section = section
 		header.delegate = self
 		
 		return header
 	}
-
+	
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 44
 	}
-
+	
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return CGFloat.leastNormalMagnitude
 	}
-		
+	
 	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return UITableViewAutomaticDimension
 	}
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		print("begin cellforrowat")
 		let cell = tableView.dequeueReusableCell(withIdentifier: "MasterListCell", for: indexPath) as! MasterListCell
 		let item = sections[indexPath.section].masterListItem[indexPath.row]
 		var index: Int = 0
 		cell.textField.text = item.name
 		item.isOnGroceryList = false
-
+		
 		
 		for i in sections[indexPath.section].groceryItem.indices {
 			if item.name == sections[indexPath.section].groceryItem[i].name {
@@ -178,44 +209,48 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 					}
 				}
 				self.sections[indexPath.section].groceryItem.remove(at: index)
-
+				
 			}
 			cell.plusButton.showPlus = !item.isOnGroceryList
 			self.saveData()
 			print("\(item.isOnGroceryList)")
 		}
-
-        return cell
-    }
-
+		
+		return cell
+	}
+	
 	
 	
 	//
 	// Editing
 	//
 	
-
-    // Handle Deleting Rows
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+	
+	// Handle Deleting Rows
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete {
 			sections[indexPath.section].masterListItem.remove(at: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .fade)
 			saveData()
 			setTableViewBackground(text: "No Items")
-
-        }
-    }
-
-    // Handle Reordering Rows
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+			
+		}
+	}
+	
+	// Handle Reordering Rows
+	override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 		let itemToMove = sections[fromIndexPath.section].masterListItem[fromIndexPath.row]
-
+		
 		sections[fromIndexPath.section].masterListItem.remove(at: fromIndexPath.row)
 		sections[to.section].masterListItem.insert(itemToMove, at: to.row)
 		saveData()
-		
-		
-    }
+		perform(#selector(reloadTable), with: self, afterDelay: 0.1)
+	}
+	
+	
+	@objc func reloadTable() {
+		tableView.reloadData()
+	}
 	
 	
 	
@@ -225,7 +260,7 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {alert -> Void in }))
 		present(alert, animated: true, completion: nil)
 	}
-
+	
 	func deleteAll() {
 		//var indices = [IndexPath]()
 		for i in sections.indices {
@@ -236,19 +271,19 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		setTableViewBackground(text: "No Items")
 		isEditing = false
 	}
-
-
+	
+	
 	
 	
 	
 	
 	
 	//
-    // MARK: - Navigation
+	// MARK: - Navigation
 	//
 	
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		
 		if segue.identifier == "AddToMasterList" {
 			let navigation = segue.destination as! UINavigationController
 			let addVC = navigation.viewControllers[0] as! AddItemViewController
@@ -256,7 +291,7 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 			addVC.setGL = false
 			addVC.sections = self.sections
 			addVC.delegate = self
-
+			
 		}
 	}
 	
@@ -278,7 +313,7 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		performSegue(withIdentifier: "AddSection", sender: nil)
 	}
 	
-
+	
 	
 	
 	
@@ -292,8 +327,8 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		saveData()
 		tableView.reloadData()
 	}
-
-
+	
+	
 	
 	
 	// MARK: - Text Field Stuff
@@ -301,13 +336,13 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	func textFieldDidEndEditing(_ textField: UITextField) {
 		let location = textField.convert(textField.bounds.origin, to: self.tableView)
 		let textFieldIndexPath = self.tableView.indexPathForRow(at: location)
-
+		
 		let trimmedString = textField.text!.trimmingCharacters(in: .whitespaces)
 		sections[(textFieldIndexPath?.section)!].masterListItem[(textFieldIndexPath?.row)!].name = trimmedString
 		tableView.reloadData()
 		saveData()
 		isEditingTextField = false
-
+		
 	}
 	
 	
@@ -328,7 +363,7 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 
 extension MasterListViewController: CollapsibleTableViewHeaderDelegate {
 	
-	func toggleSection(_ header: CollapsibleTableViewHeader, section: Int) {
+	@objc func toggleSection(_ header: CollapsibleTableViewHeader, section: Int) {
 		let isCollapsed = !sections[section].isCollapsed
 		
 		// Toggle collapse

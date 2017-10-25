@@ -11,8 +11,11 @@ class ListViewController: UITableViewController {
 	var savedText: String?					// Used for restoring text after tap outside textField
 	var textFieldIndexPath = IndexPath()	// Location of text field being edited
 	var isEditingTextField = false
-	
-	
+	var didReorder: Bool = false
+//	let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+//		target: self,
+//		action: #selector(dismissKeyboard))
+
 	
 	
 	// MARK: - View Controller Life Cycle
@@ -20,7 +23,7 @@ class ListViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		hideKeyboard()
+//		view.addGestureRecognizer(tap)
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
@@ -78,6 +81,7 @@ class ListViewController: UITableViewController {
 	
 	
 	
+	
 	// MARK: - Data
 	
 	func documentsDirectory() -> URL {
@@ -116,18 +120,23 @@ class ListViewController: UITableViewController {
 	
 	
 	
+	// MARK: - Editing
+	
+
+//	override func setEditing(_ editing: Bool, animated: Bool) {
+//		super.setEditing(editing, animated: animated)
+//
+//		if isEditing {
+//			view.removeGestureRecognizer(tap)
+//		} else {
+//			view.addGestureRecognizer(tap)
+//		}
+//
+//	}
 	
 	
 	
 	
-	// Hide keyboard when editing if tapped outside textField
-	func hideKeyboard() {
-		let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-			target: self,
-			action: #selector(self.dismissKeyboard))
-		
-		view.addGestureRecognizer(tap)
-	}
 	
 	@objc func dismissKeyboard() {
 		if isEditingTextField {

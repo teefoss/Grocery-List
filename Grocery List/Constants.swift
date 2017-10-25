@@ -2,14 +2,50 @@ import UIKit
 
 
 
-// Colors
-let appColor = UIColor(red: 255/255, green: 45/255, blue: 85/255, alpha: 1.0)
-let navigationBarColor = UIColor(red: 235/255, green: 25/255, blue: 65/255, alpha: 1.0)
-let buttonColor = UIColor.white
+// App Colors
+
+// Yellow Theme
+/*
+let NAV_BKG = Color.iconYellow
+let BAR_BUTTON_COLOR = Color.defaultBlue
+let TITLE_COLOR = Color.defaultBlue
+let HEADER_COLOR = Color.mexicanRed
+*/
+
+// Red Theme
+//*
+let NAV_BKG = Color.mexicanRed
+let BAR_BUTTON_COLOR = UIColor.white
+let TITLE_COLOR = UIColor.white
+let HEADER_COLOR = Color.mexicanRed
+let TOOLBAR_ITEM_COLOR = Color.mexicanRed
+//*/
+
+
+
+
+struct Color {
+	
+	// Icon Colors
+	static let iconYellow = UIColor(red: 255/255, green: 224/255, blue: 147/255, alpha: 1.0)
+	static let iconDarkBlue = UIColor(red: 31/255, green: 199/255, blue: 215/255, alpha: 1.0)
+	
+	// Old Colors
+	static let mexicanRed = UIColor(red: 255/255, green: 45/255, blue: 85/255, alpha: 1.0)
+	static let oldRed = UIColor(red: 235/255, green: 25/255, blue: 65/255, alpha: 1.0)
+	
+	// Other Colors
+	static let defaultBlue = UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
+}
+
+
 
 struct Constants {
 	static var isTesting = false
 }
+
+
+
 
 func testData() -> [Section] {
 	

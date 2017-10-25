@@ -20,12 +20,12 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
 		
 		// set up navigation bar
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-		navigationController?.navigationBar.tintColor = UIColor.white
-		navigationController?.navigationBar.barTintColor = appColor
+		navigationController?.navigationBar.tintColor = TITLE_COLOR
+		navigationController?.navigationBar.barTintColor = NAV_BKG
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.isOpaque = true
-		navigationController?.toolbar.tintColor = appColor
-		navigationController?.toolbar.barTintColor = buttonColor
+		navigationController?.toolbar.tintColor = TOOLBAR_ITEM_COLOR
+//		navigationController?.toolbar.barTintColor = BAR_BUTTON_COLOR
 
 		// set up toolbar
 		navigationItem.rightBarButtonItem = editButtonItem

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Arrow: UIView {
+class Arrow: UIButton {
 
 	var pointsRight: Bool = false
 	
@@ -16,7 +16,7 @@ class Arrow: UIView {
 		
 		let path = UIBezierPath()
 		path.move(to: CGPoint(x: rect.origin.x, y: rect.maxY))
-		path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY/2))
+		path.addLine(to: CGPoint(x: rect.maxX-3.0, y: rect.maxY/2))
 		path.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y))
 
 		path.lineWidth = 3.0

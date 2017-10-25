@@ -1,12 +1,23 @@
 import UIKit
 
-
-
 protocol AddItemViewControllerDelegate: class {
 	func didAddItem(_ controller: AddItemViewController, didAddItem item: [Section])
 }
 
+/**
 
+**********************
+View where you add an item
+**********************
+
+Segue'd from
+1) Grocery List (GL) or
+2) Master List (ML) aka Saved Items
+
+Segue to
+1) Section List
+
+*/
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
@@ -70,8 +81,8 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 		
 		// set up navigation bar
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-		navigationController?.navigationBar.tintColor = UIColor.white
-		navigationController?.navigationBar.barTintColor = appColor
+		navigationController?.navigationBar.tintColor = TITLE_COLOR
+		navigationController?.navigationBar.barTintColor = NAV_BKG
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.isOpaque = true
 
@@ -83,20 +94,33 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 	
 	
 	
-	// FIXME: No selected row should disable saving and present alert
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		nameTextField.becomeFirstResponder()
+
+		// select the first aisle if none is selected
+		var foundSelected = false
+		
 		for index in sections.indices {
 			if sections[index].isSelected {
-				aisleTextLabel.text = sections[index].name
+				foundSelected = true
 				break
-			} else {
-				sections[0].isSelected = true
-				aisleTextLabel.text = sections[0].name
 			}
-			
 		}
+
+		// Set the field to the first aisle if none selected.
+		if foundSelected == false {
+			sections[0].isSelected = true
+			aisleTextLabel.text = sections[0].name
+		} else {
+			for index in sections.indices {
+				if sections[index].isSelected {
+					aisleTextLabel.text = sections[index].name
+					break
+				}
+			}
+		}
+		
 	}
 
 

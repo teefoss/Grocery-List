@@ -17,10 +17,11 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		
 		// Set Up Navigation Bar
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-		navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-		navigationController?.navigationBar.tintColor = UIColor.white
-		navigationController?.navigationBar.barTintColor = appColor
+		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: TITLE_COLOR]
+		navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: TITLE_COLOR]
+		navigationController?.navigationBar.tintColor = TITLE_COLOR
+		navigationController?.navigationBar.barTintColor = NAV_BKG
+		
 		navigationController?.navigationBar.isTranslucent = false
 		navigationController?.navigationBar.isOpaque = true
 
@@ -33,8 +34,8 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		                                                    action: #selector(gotoSavedItems))
 
 		// Set Up Toolbar
-		navigationController?.toolbar.tintColor = appColor
-		navigationController?.toolbar.barTintColor = buttonColor
+		navigationController?.toolbar.tintColor = TOOLBAR_ITEM_COLOR
+//		navigationController?.toolbar.barTintColor = BAR_BUTTON_COLOR
 		toolbarItems = addToolbarItems()
 		
 		let dictionary: [String : Any] = ["FirstTime" : true]
@@ -122,7 +123,7 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
 		let label = UILabel(frame: CGRect(x: 16, y: 20, width: tableView.frame.size.width, height: 44))
 		label.font = UIFont.boldSystemFont(ofSize: 15.0)
-		label.textColor = appColor
+		label.textColor = HEADER_COLOR
 		if sections[section].groceryItem.isEmpty {
 			label.text = nil
 		} else {

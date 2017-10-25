@@ -13,6 +13,7 @@ class AddButton: UIButton {
 
 	var showPlus: Bool = true
 	
+	
 	// Only override draw() if you perform custom drawing.
 	// An empty implementation adversely affects performance during animation.
 	
@@ -49,6 +50,7 @@ class AddButton: UIButton {
 			plusPath.addLine(to: CGPoint(x: midx, y: margin+plusMargin))
 			UIColor.white.setStroke()
 			plusPath.stroke()
+			
 			
 		} else {	// minus symbol
 			let circlex = rect.origin.x + margin

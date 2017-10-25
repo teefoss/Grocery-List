@@ -11,6 +11,7 @@
 		30052A0F1F87C9D4009C3927 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30052A0E1F87C9D4009C3927 /* EmptyView.swift */; };
 		300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFC1F7C18BC0014094B /* CheckBox.swift */; };
 		300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFE1F7C19220014094B /* GroceryItemCell.swift */; };
+		301D74A31FA02A0E00BC99B9 /* SectionToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */; };
 		3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDB91F78508C00DC6FAD /* AppDelegate.swift */; };
 		3042CDBF1F78508C00DC6FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDBD1F78508C00DC6FAD /* Main.storyboard */; };
 		3042CDC11F78508C00DC6FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDC01F78508C00DC6FAD /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		30052A0E1F87C9D4009C3927 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		300F2FFC1F7C18BC0014094B /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		300F2FFE1F7C19220014094B /* GroceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItemCell.swift; sourceTree = "<group>"; };
+		301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionToggle.swift; sourceTree = "<group>"; };
 		3042CDB61F78508C00DC6FAD /* Grocery List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3042CDB91F78508C00DC6FAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3042CDBE1F78508C00DC6FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				30052A0E1F87C9D4009C3927 /* EmptyView.swift */,
 				30CCF42D1F9A56A7003CAD0C /* CollapsibleTableViewHeader.swift */,
 				30CCF42F1F9A70B8003CAD0C /* Arrow.swift */,
+				301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				306231EC1F8E58C0000EEE84 /* Extentions.swift in Sources */,
 				30052A0B1F86DB52009C3927 /* Constants.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
+				301D74A31FA02A0E00BC99B9 /* SectionToggle.swift in Sources */,
 				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
 				30CCF4301F9A70B8003CAD0C /* Arrow.swift in Sources */,
 				3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */,
@@ -386,14 +390,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D54ZHB8K4R;
 				INFOPLIST_FILE = "Grocery List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thomasfoster.Grocery-List";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -401,14 +408,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D54ZHB8K4R;
 				INFOPLIST_FILE = "Grocery List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.thomasfoster.Grocery-List";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

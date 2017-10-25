@@ -10,40 +10,55 @@ class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
 
 	var delegate: CollapsibleTableViewHeaderDelegate?
 	var section: Int = 0
-	let titleLabel = UILabel()
-	let arrowLabel = UILabel()
+//	let titleLabel = UILabel()
+//	let button = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
+//	let cell = UITableViewCell()
+//	let countLabel = UILabel()
 	
 	
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
 		
-		contentView.addSubview(titleLabel)
-		contentView.addSubview(arrowLabel)
+//		contentView.addSubview(titleLabel)
+//		contentView.addSubview(countLabel)
+//		contentView.addSubview(button)
+//		cell.frame = button.bounds
+//		cell.accessoryType = .disclosureIndicator
+//		cell.isUserInteractionEnabled = false
+//		button.addSubview(cell)
 		
 		
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleTableViewHeader.tapHeader(_:))))
 		
 		contentView.backgroundColor = UIColor.groupTableViewBackground
 
-		let marginGuide = contentView.layoutMarginsGuide
-
-		// Arrow label
-		contentView.addSubview(arrowLabel)
-		arrowLabel.textColor = appColor
-		arrowLabel.translatesAutoresizingMaskIntoConstraints = false
-		arrowLabel.widthAnchor.constraint(equalToConstant: 12).isActive = true
-		arrowLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
-		arrowLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
-		arrowLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
-		
-		// Title label
-		contentView.addSubview(titleLabel)
-		titleLabel.textColor = UIColor.white
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
-		titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
-		titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
-		titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
+//		let marginGuide = contentView.layoutMarginsGuide
+//
+//
+//		// Count Label
+//		countLabel.translatesAutoresizingMaskIntoConstraints = false
+//		countLabel.textColor = HEADER_COLOR
+//		countLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
+////		countLabel.trailingAnchor.constraint(equalTo: marginGuide.).isActive = true
+//		countLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
+////		countLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
+//
+//		// Arrow
+//		button.translatesAutoresizingMaskIntoConstraints = false
+////		button.widthAnchor.constraint(equalToConstant: 12).isActive = true
+//		button.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
+//		button.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
+//		button.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
+//
+//
+//		// Title label
+//		contentView.addSubview(titleLabel)
+//		titleLabel.textColor = UIColor.white
+//		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+//		titleLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
+//		titleLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
+//		titleLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
+//		titleLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
 		
 	}
 	
@@ -58,8 +73,8 @@ class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
 		delegate?.toggleSection(self, section: cell.section)
 	}
 	
-	func setCollapsed(_ collapsed: Bool) {
-		arrowLabel.rotate(collapsed ? 0.0 : .pi / 2)
-	}
+//	func setCollapsed(_ collapsed: Bool) {
+//		button.rotate(collapsed ? 0.0 : .pi / 2)
+//	}
 	
 }

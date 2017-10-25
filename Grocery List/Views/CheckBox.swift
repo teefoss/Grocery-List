@@ -11,7 +11,7 @@ class CheckBox: UIButton {
 	override func draw(_ rect: CGRect) {
 		
 		let margin: CGFloat = 10
-		let circleThickness: CGFloat = 1.5
+		let circleThickness: CGFloat = 1.25
 		let dotMargin: CGFloat = 3.5
 		let color = UIColor(red: 0, green: 111/255, blue: 255/255, alpha: 1)
 		
