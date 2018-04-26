@@ -5,21 +5,24 @@ import UIKit
 // App Colors
 
 // Yellow Theme
-/*
-let NAV_BKG = Color.iconYellow
-let BAR_BUTTON_COLOR = Color.defaultBlue
-let TITLE_COLOR = Color.defaultBlue
-let HEADER_COLOR = Color.mexicanRed
-*/
+
+//let NAV_BKG = Color.iconYellow
+//let BAR_BUTTON_COLOR = Color.defaultBlue
+//let TITLE_COLOR = UIColor.black
+//let HEADER_COLOR = Color.defaultBlue
+//let CHECKBOX_COLOR = Color.mexicanRed
+//let TOOLBAR_ITEM_COLOR = Color.defaultBlue
+//var statusColor = "light"
+
 
 // Red Theme
-//*
+
 let NAV_BKG = Color.mexicanRed
 let BAR_BUTTON_COLOR = UIColor.white
 let TITLE_COLOR = UIColor.white
 let HEADER_COLOR = Color.mexicanRed
 let TOOLBAR_ITEM_COLOR = Color.mexicanRed
-//*/
+let CHECKBOX_COLOR = Color.defaultBlue
 
 
 

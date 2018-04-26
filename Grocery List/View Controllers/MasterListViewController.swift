@@ -30,6 +30,7 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		tableView.estimatedRowHeight = 44.0
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
+		tableView.register(CollapsibleTableViewHeader.nib, forHeaderFooterViewReuseIdentifier: CollapsibleTableViewHeader.identifier)
 	}
 	
 	
@@ -74,12 +75,12 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	// MARK: - Table view data source
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		// #warning Incomplete implementation, return the number of sections
+
 		return sections.count
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// #warning Incomplete implementation, return the number of rows
+
 		return sections[section].isCollapsed ? 0 : sections[section].masterListItem.count
 	}
 	
@@ -118,46 +119,48 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 	
 	
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: "header")
+
+		//let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: "header")
 		
-		let width = tableView.frame.size.width
-		let margin: CGFloat = 16.0
-		let labelWidth = width*0.5
-		let countLabelWidth: CGFloat = 44.0
-		let plusWidth: CGFloat = 28.0
-		let countLabelX = tableView.frame.maxX - countLabelWidth - margin*2 - plusWidth
-		let plusX = tableView.frame.maxX - plusWidth - margin
-		
-		//				let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
-		let label = UILabel(frame: CGRect(x: 16, y: 0, width: labelWidth, height: 44))
-		let countLabel = UILabel(frame: CGRect(x: countLabelX, y: 0, width: countLabelWidth, height: 44))
-		let plus = SectionToggle(frame: CGRect(x: plusX, y: 8, width: plusWidth, height: 28))
-		label.font = UIFont.boldSystemFont(ofSize: 15.0)
-		label.textColor = HEADER_COLOR
-		label.text = sections[section].name
-		
-		countLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
-		countLabel.textColor = HEADER_COLOR
-		countLabel.textAlignment = .right
-		countLabel.text = "\(sections[section].masterListItem.count)"
-		
-		plus.backgroundColor = UIColor.clear
-		plus.closed = sections[section].isCollapsed
-		
-		header.addSubview(label)
-		header.addSubview(countLabel)
-		header.addSubview(plus)
+		if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: CollapsibleTableViewHeader.identifier) as? CollapsibleTableViewHeader {
+			header.aisle = sections[section]
+			header.section = section
+			header.button.closed = sections[section].isCollapsed
+			header.delegate = self
+
+			return header
+		}
+		return UIView()
+//		let width = tableView.frame.size.width
+//		let margin: CGFloat = 16.0
+//		let labelWidth = width*0.5
+//		let countLabelWidth: CGFloat = 44.0
+//		let plusWidth: CGFloat = 28.0
+//		let countLabelX = tableView.frame.maxX - countLabelWidth - margin*2 - plusWidth
+//		let plusX = tableView.frame.maxX - plusWidth - margin
+//		
+//		//let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 44))
+//		let label = UILabel(frame: CGRect(x: 16, y: 0, width: labelWidth, height: 44))
+//		let countLabel = UILabel(frame: CGRect(x: countLabelX, y: 0, width: countLabelWidth, height: 44))
+//		let plus = SectionToggle(frame: CGRect(x: plusX, y: 8, width: plusWidth, height: 28))
+//		label.font = UIFont.boldSystemFont(ofSize: 15.0)
+//		label.textColor = HEADER_COLOR
+//		label.text = sections[section].name
+//		
+//		countLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
+//		countLabel.textColor = HEADER_COLOR
+//		countLabel.textAlignment = .right
+//		countLabel.text = "\(sections[section].masterListItem.count)"
+//		
+//		plus.backgroundColor = UIColor.clear
+//		plus.closed = sections[section].isCollapsed
+//		
+//		header.addSubview(label)
+//		header.addSubview(countLabel)
+//		header.addSubview(plus)
 		//view.backgroundColor = UIColor.groupTableViewBackground
 		
-		
-		
-		
-		//header.setCollapsed(sections[section].isCollapsed)
-		
-		header.section = section
-		header.delegate = self
-		
-		return header
+//		header.setCollapsed(sections[section].isCollapsed)
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -244,7 +247,7 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		sections[fromIndexPath.section].masterListItem.remove(at: fromIndexPath.row)
 		sections[to.section].masterListItem.insert(itemToMove, at: to.row)
 		saveData()
-		perform(#selector(reloadTable), with: self, afterDelay: 0.1)
+//		perform(#selector(reloadTable), with: self, afterDelay: 0.1)
 	}
 	
 	
@@ -363,7 +366,9 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 
 extension MasterListViewController: CollapsibleTableViewHeaderDelegate {
 	
-	@objc func toggleSection(_ header: CollapsibleTableViewHeader, section: Int) {
+	func toggleSection(_ header: CollapsibleTableViewHeader, section: Int) {
+
+		print ("togglesection")
 		let isCollapsed = !sections[section].isCollapsed
 		
 		// Toggle collapse

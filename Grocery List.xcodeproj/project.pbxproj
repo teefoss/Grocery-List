@@ -12,6 +12,7 @@
 		300F2FFD1F7C18BC0014094B /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFC1F7C18BC0014094B /* CheckBox.swift */; };
 		300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFE1F7C19220014094B /* GroceryItemCell.swift */; };
 		301D74A31FA02A0E00BC99B9 /* SectionToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */; };
+		3040020120922E9C002F9DDB /* CollapsibleTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3040020020922E9C002F9DDB /* CollapsibleTableViewHeader.xib */; };
 		3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDB91F78508C00DC6FAD /* AppDelegate.swift */; };
 		3042CDBF1F78508C00DC6FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDBD1F78508C00DC6FAD /* Main.storyboard */; };
 		3042CDC11F78508C00DC6FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDC01F78508C00DC6FAD /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		300F2FFC1F7C18BC0014094B /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		300F2FFE1F7C19220014094B /* GroceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItemCell.swift; sourceTree = "<group>"; };
 		301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionToggle.swift; sourceTree = "<group>"; };
+		3040020020922E9C002F9DDB /* CollapsibleTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeader.xib; sourceTree = "<group>"; };
 		3042CDB61F78508C00DC6FAD /* Grocery List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3042CDB91F78508C00DC6FAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3042CDBE1F78508C00DC6FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				3042CDC01F78508C00DC6FAD /* Assets.xcassets */,
 				3042CDC21F78508C00DC6FAD /* LaunchScreen.storyboard */,
 				3042CDC51F78508C00DC6FAD /* Info.plist */,
+				3040020020922E9C002F9DDB /* CollapsibleTableViewHeader.xib */,
 			);
 			path = "Grocery List";
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3040020120922E9C002F9DDB /* CollapsibleTableViewHeader.xib in Resources */,
 				3042CDC41F78508C00DC6FAD /* LaunchScreen.storyboard in Resources */,
 				3042CDC11F78508C00DC6FAD /* Assets.xcassets in Resources */,
 				3042CDBF1F78508C00DC6FAD /* Main.storyboard in Resources */,
