@@ -13,6 +13,7 @@
 		300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F2FFE1F7C19220014094B /* GroceryItemCell.swift */; };
 		301D74A31FA02A0E00BC99B9 /* SectionToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */; };
 		3040020120922E9C002F9DDB /* CollapsibleTableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3040020020922E9C002F9DDB /* CollapsibleTableViewHeader.xib */; };
+		304002032092B683002F9DDB /* PopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304002022092B683002F9DDB /* PopoverController.swift */; };
 		3042CDBA1F78508C00DC6FAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042CDB91F78508C00DC6FAD /* AppDelegate.swift */; };
 		3042CDBF1F78508C00DC6FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDBD1F78508C00DC6FAD /* Main.storyboard */; };
 		3042CDC11F78508C00DC6FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3042CDC01F78508C00DC6FAD /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 		300F2FFE1F7C19220014094B /* GroceryItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItemCell.swift; sourceTree = "<group>"; };
 		301D74A21FA02A0E00BC99B9 /* SectionToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionToggle.swift; sourceTree = "<group>"; };
 		3040020020922E9C002F9DDB /* CollapsibleTableViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollapsibleTableViewHeader.xib; sourceTree = "<group>"; };
+		304002022092B683002F9DDB /* PopoverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverController.swift; sourceTree = "<group>"; };
 		3042CDB61F78508C00DC6FAD /* Grocery List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Grocery List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3042CDB91F78508C00DC6FAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3042CDBE1F78508C00DC6FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				3067D5E71F7DF61D00A75527 /* MasterListViewController.swift */,
 				306231EF1F904E2F000EEE84 /* Add Item */,
 				3050C6631F79C38E00B3476A /* Sections */,
+				304002022092B683002F9DDB /* PopoverController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				30052A0B1F86DB52009C3927 /* Constants.swift in Sources */,
 				3050C6941F7BDBE800B3476A /* SectionsListViewController.swift in Sources */,
 				301D74A31FA02A0E00BC99B9 /* SectionToggle.swift in Sources */,
+				304002032092B683002F9DDB /* PopoverController.swift in Sources */,
 				300F2FFF1F7C19220014094B /* GroceryItemCell.swift in Sources */,
 				30CCF4301F9A70B8003CAD0C /* Arrow.swift in Sources */,
 				3050C6911F7B31F500B3476A /* AddItemViewController.swift in Sources */,

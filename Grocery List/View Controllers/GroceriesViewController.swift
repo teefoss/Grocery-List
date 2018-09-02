@@ -35,13 +35,16 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 
 		// Set Up Toolbar
 		navigationController?.toolbar.tintColor = TOOLBAR_ITEM_COLOR
-//		navigationController?.toolbar.barTintColor = BAR_BUTTON_COLOR
 		toolbarItems = addToolbarItems()
-		
-		let dictionary: [String : Any] = ["FirstTime" : true]
-		UserDefaults.standard.register(defaults: dictionary)
 
-		
+		if UIApplication.isFirstLaunch() {
+			sections = loadDefaultData()
+		}
+
+//		if !UserDefaults.standard.bool(forKey: "firstGroceryList") {
+//			presentInfoAlert(withTitle: "Welcome!", message: "This is your grocery list. Go to 'Saved Items' to quickly add items. Go to 'Aisles' to customize your list.", buttonText: "Got it!")
+//			UserDefaults.standard.set("true", forKey: "firstGroceryList")
+//		}
 	}
 	
 	
@@ -53,8 +56,6 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.largeTitleDisplayMode = .always
-
-		handleFirstTime()
 
 		loadData()
 		tableView.reloadData()
@@ -92,23 +93,6 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		
 		return items
 	}
-
-	
-	
-	func handleFirstTime() {
-		let defaults = UserDefaults.standard
-		let firstTime = defaults.bool(forKey: "FirstTime")
-		
-		if firstTime {
-			sections = loadDefaultData()
-			defaults.set(false, forKey: "FirstTime")
-			defaults.synchronize()
-		}
-	}
-
-
-	
-	
 	
 
     // MARK: - Table view data source
@@ -247,10 +231,6 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		isEditing = false
 	}
 	
-	
-
-
-	
 	//Override to support editing the table view.
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 		super.tableView(tableView, commit: editingStyle, forRowAt: indexPath)
@@ -274,8 +254,6 @@ class GroceriesViewController: ListViewController, AddItemViewControllerDelegate
 		sections[to.section].groceryItem.insert(itemToMove, at: to.row)
 		saveData()
 	}
-	
-
 	
 	
 	

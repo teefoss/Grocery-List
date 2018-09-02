@@ -11,6 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 //			self.statusUIApplication.shared.statusBarStyle = .lightContent
 
+		
+		
 		return true
 	}
 
@@ -34,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+		if UIApplication.isFirstLaunch() {
+			UserDefaults.standard.set(false, forKey: "isFirstLaunch")
+			UserDefaults.standard.synchronize()
+		}
 	}
 
 

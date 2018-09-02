@@ -11,12 +11,10 @@ import UIKit
 
 class SectionsViewController: ListViewController, AddSectionViewControllerDelegate {
 	
-	
-	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		title = "Aisles & Sections"
+		title = "Edit Aisles"
 		
 		// set up navigation bar
 		navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
@@ -37,9 +35,11 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
 		items.append(addButton)
 		toolbarItems = items
 
+		if !UserDefaults.standard.bool(forKey: "firstAisles") {
+			presentInfoAlert(withTitle: "Edit Aisles", message: "This where you customize your aisles. For efficient shopping, order them as they are in your store!", buttonText: "Great.")
+			UserDefaults.standard.set("true", forKey: "firstAisles")
+		}
     }
-	
-	
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -49,13 +49,8 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
 	}
 
 
-	
-	
-	
-	
-    // MARK: - Table view data source
-	
 
+    // MARK: - Table view data source
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 //		if sections.isEmpty { return 0 }
@@ -98,7 +93,6 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
 	}
 	
 	
-	// FIXME: It's fucked!!
     // Swipe to Delete
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -120,7 +114,6 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
 			}
         }
     }
-	
 
 	
     // Move Rows
@@ -133,14 +126,9 @@ class SectionsViewController: ListViewController, AddSectionViewControllerDelega
     }
 
 
-	
-	
-	
-	
+
     // MARK: - Navigation
 
-	
-	
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "AddSection" {
 			let addSectionVC = segue.destination as! AddSectionViewController

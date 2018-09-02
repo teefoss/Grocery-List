@@ -31,6 +31,12 @@ class MasterListViewController: ListViewController, AddItemViewControllerDelegat
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		tableView.register(CollapsibleTableViewHeader.nib, forHeaderFooterViewReuseIdentifier: CollapsibleTableViewHeader.identifier)
+
+		if !UserDefaults.standard.bool(forKey: "firstMasterList") {
+			presentInfoAlert(withTitle: "Saved Items", message: "Tap an item's '+' to add it to your grocery list.", buttonText: "Got it!")
+			UserDefaults.standard.set("true", forKey: "firstMasterList")
+			UserDefaults.standard.synchronize()
+		}
 	}
 	
 	

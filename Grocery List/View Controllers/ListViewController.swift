@@ -59,7 +59,6 @@ class ListViewController: UITableViewController {
 	
 	
 	
-	
 	// MARK: - Table view data source
 	
 	// make rows not selectable
